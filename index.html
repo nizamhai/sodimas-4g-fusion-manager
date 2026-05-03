@@ -2078,7 +2078,7 @@
         </svg>
         Tableau de bord
       </div>
-      <div class="sidebar-item" onclick="openImport()">
+      <div class="sidebar-item" id="sidebar-import-btn" onclick="openImport()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
           <polyline points="7 10 12 15 17 10"/>
@@ -2086,7 +2086,7 @@
         </svg>
         Importer Excel
       </div>
-      <div class="sidebar-item" onclick="exportExcel()">
+      <div class="sidebar-item" id="sidebar-export-btn" onclick="exportExcel()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
           <polyline points="14 2 14 8 20 8"/>
@@ -2103,7 +2103,7 @@
         </svg>
         Licences
       </div>
-      <div class="sidebar-item" onclick="openSettings()">
+      <div class="sidebar-item" id="sidebar-settings-btn" onclick="openSettings()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="3"/>
           <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
@@ -2661,17 +2661,45 @@
         </div>
       </div>
 
-      <div class="settings-section">
-        <div class="settings-title">☁ GOOGLE SHEETS / APPSHEET</div>
+            <div class="settings-section">
+        <div class="settings-title">⚡ SUPABASE — BASE DE DONNÉES CLOUD</div>
 
         <div style="background:rgba(21,128,61,0.10);border:1px solid rgba(21,128,61,0.3);border-radius:10px;padding:14px;margin-bottom:16px">
-          <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:8px">💡 COMMENT ÇA FONCTIONNE ?</div>
+          <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:8px">💡 COMMENT CONFIGURER ?</div>
           <div style="font-size:11px;color:var(--text-dim);line-height:1.8">
-            <strong style="color:var(--text)">SOD 4G FUSION</strong> écrit dans ton Google Sheet<br>
-            <strong style="color:var(--text)">AppSheet</strong> lit le même Google Sheet automatiquement<br>
-            → Les deux sont toujours synchronisés ✓
+            1. Crée un compte gratuit sur <strong style="color:var(--text)">supabase.com</strong><br>
+            2. Nouveau projet → copie l'<strong style="color:var(--text)">URL</strong> et la clé <strong style="color:var(--text)">anon key</strong><br>
+            3. Dans Supabase → Table Editor → crée la table <strong style="color:var(--text)">appareils</strong><br>
+            4. Colle l'URL et la clé ci-dessous
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="form-label">🔗 URL Supabase</label>
+          <input type="text" id="sb-url" class="form-input" placeholder="https://XXXX.supabase.co">
+          <div class="form-hint">Project URL → Settings → API</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">🔑 Anon Key</label>
+          <input type="text" id="sb-key" class="form-input" placeholder="eyJhbGc...">
+          <div class="form-hint">Project API Keys → anon public</div>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+          <button class="btn btn-primary btn-sm" onclick="saveSupabaseConfig()">💾 Enregistrer</button>
+          <button class="btn btn-outline btn-sm" onclick="testSupabaseConnection()">🧪 Tester</button>
+          <button class="btn btn-outline btn-sm" onclick="syncToSupabase()" style="color:var(--amber);border-color:var(--amber)">⬆ Envoyer</button>
+          <button class="btn btn-outline btn-sm" onclick="syncFromSupabase()" style="color:var(--green);border-color:var(--green)">⬇ Récupérer</button>
+        </div>
+
+        <div id="sb-status" style="display:none;padding:10px;border-radius:8px;font-size:12px;margin-top:4px"></div>
+
+        <div style="padding:10px;background:rgba(100,116,139,0.1);border-radius:6px;margin-top:8px">
+          <div style="font-size:10px;color:var(--amber);font-weight:700;margin-bottom:4px">📋 CRÉER LA TABLE SUPABASE</div>
+          <div style="font-size:10px;color:var(--text-dim);margin-bottom:6px">Dans Supabase → SQL Editor → colle et exécute :</div>
+          <button class="btn btn-outline btn-sm" style="font-size:10px" onclick="copySupabaseSQL()">📋 Copier le SQL</button>
+        </div>
+      </div>
 
         <!-- Étapes -->
         <div style="margin-bottom:16px;display:flex;flex-direction:column;gap:8px">
@@ -2928,9 +2956,38 @@ function saveSMSTemplates(t) { localStorage.setItem(SMS_TPL_KEY, JSON.stringify(
 
 // ── USER MANAGEMENT ─────────────────────────────────────────────────────
 function getUsers() {
-  try { return JSON.parse(localStorage.getItem(USERS_KEY)) || defaults.users; } catch(e) { return defaults.users; }
+  try { return JSON.parse(localStorage.getItem(USERS_KEY)) || defaults.users; }
+  catch(e) { return defaults.users; }
 }
-function saveUsers(users) { localStorage.setItem(USERS_KEY, JSON.stringify(users)); }
+
+function saveUsers(users) {
+  localStorage.setItem(USERS_KEY, JSON.stringify(users));
+  // Sync vers Supabase en arrière-plan
+  const config = getSupabaseConfig();
+  if(!config.url || !config.key) return;
+  const payload = users.map(u => ({ id: u.id, username: u.username, password: u.password, role: u.role }));
+  fetch(config.url + '/rest/v1/utilisateurs', {
+    method: 'POST',
+    headers: { ...sbHeaders(config), 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+    body: JSON.stringify(payload)
+  }).catch(() => {});
+}
+
+async function syncUsersFromSupabase() {
+  const config = getSupabaseConfig();
+  if(!config.url || !config.key) return;
+  try {
+    const r = await fetch(config.url + '/rest/v1/utilisateurs', { headers: sbHeaders(config) });
+    if(!r.ok) return;
+    const data = await r.json();
+    if(Array.isArray(data) && data.length > 0) {
+      const users = data.map(u => ({ id: u.id, username: u.username, password: u.password, role: u.role }));
+      localStorage.setItem(USERS_KEY, JSON.stringify(users));
+      return users;
+    }
+  } catch(e) {}
+  return null;
+}
 
 function renderUsers() {
   const users = getUsers();
@@ -3265,8 +3322,19 @@ function exportLicences() {
   toast('✓ Export CSV téléchargé', 'success');
 }
 function updateSidebarForRole(user) {
-  const btn = document.getElementById('sidebar-licence-btn');
-  if(btn) btn.style.display = (user && user.role === 'administrateur') ? '' : 'none';
+  const role = user ? user.role : '';
+  const isAdmin      = role === 'administrateur';
+  const isTechnicien = role === 'technicien';
+
+  // Licences — admin seulement
+  const licBtn = document.getElementById('sidebar-licence-btn');
+  if(licBtn) licBtn.style.display = isAdmin ? '' : 'none';
+
+  // Import Excel, Export Excel, Paramètres — masqués pour technicien
+  ['sidebar-import-btn', 'sidebar-export-btn', 'sidebar-settings-btn'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.style.display = isTechnicien ? 'none' : '';
+  });
 }
 
 // ═══════════════════════════════════════════
@@ -3275,8 +3343,7 @@ function updateSidebarForRole(user) {
 const LICENCE_KEY = 'sod4g_licence';
 const LICENCE_EXPIRY_KEY = 'sod4g_licence_expiry';
 
-// ⚠ À remplacer par ton URL Google Sheets de licences
-const LICENCE_SHEET_URL = 'https://script.google.com/macros/s/TON_SCRIPT_LICENCE/exec';
+const LICENCE_SHEET_URL = '';
 
 function initLicence() {
   const savedLicence = localStorage.getItem(LICENCE_KEY);
@@ -3380,29 +3447,45 @@ function revokeLicence() {
 // ═══════════════════════════════════════════════
 // ☁ GOOGLE SHEETS — SAUVEGARDE CLOUD
 // ═══════════════════════════════════════════════
-const GS_CONFIG_KEY = 'sod4g_gs_config';
+// ══════════════════════════════════════════════════════
+// ⚡ SUPABASE — Base de données cloud
+// ══════════════════════════════════════════════════════
+const SB_CONFIG_KEY = 'sod4g_sb_config';
 
-function getGoogleSheetsConfig() {
-  try { return JSON.parse(localStorage.getItem(GS_CONFIG_KEY)) || {}; }
+function getSupabaseConfig() {
+  try { return JSON.parse(localStorage.getItem(SB_CONFIG_KEY)) || {}; }
   catch(e) { return {}; }
 }
 
-function saveGoogleSheetsConfig() {
+function saveSupabaseConfig() {
   const config = {
-    scriptUrl: document.getElementById('gs-script-url').value.trim()
+    url: document.getElementById('sb-url').value.trim().replace(/\/$/, ''),
+    key: document.getElementById('sb-key').value.trim()
   };
-  localStorage.setItem(GS_CONFIG_KEY, JSON.stringify(config));
-  toast('✓ Configuration Google Sheets enregistrée', 'success');
+  if(!config.url || !config.key) { toast('⚠ Remplissez l\'URL et la clé Supabase', 'error'); return; }
+  localStorage.setItem(SB_CONFIG_KEY, JSON.stringify(config));
+  toast('✓ Configuration Supabase enregistrée', 'success');
 }
 
-function loadGoogleSheetsConfigUI() {
-  const config = getGoogleSheetsConfig();
-  const el = document.getElementById('gs-script-url');
-  if(el) el.value = config.scriptUrl || '';
+function loadSupabaseConfigUI() {
+  const config = getSupabaseConfig();
+  const urlEl = document.getElementById('sb-url');
+  const keyEl = document.getElementById('sb-key');
+  if(urlEl && config.url) urlEl.value = config.url;
+  if(keyEl && config.key) keyEl.value = config.key;
 }
 
-function showGsStatus(msg, ok) {
-  const el = document.getElementById('gs-status');
+function sbHeaders(config) {
+  return {
+    'apikey': config.key,
+    'Authorization': 'Bearer ' + config.key,
+    'Content-Type': 'application/json',
+    'Prefer': 'return=minimal'
+  };
+}
+
+function showSbStatus(msg, ok) {
+  const el = document.getElementById('sb-status');
   if(!el) return;
   el.style.display = 'block';
   el.style.background = ok ? 'rgba(21,128,61,0.12)' : 'rgba(220,38,38,0.10)';
@@ -3411,202 +3494,267 @@ function showGsStatus(msg, ok) {
   el.textContent = msg;
 }
 
-function testGoogleSheetsConnection() {
-  const config = getGoogleSheetsConfig();
-  if(!config.scriptUrl) { toast('⚠ Entrez d\'abord l\'URL Apps Script', 'error'); return; }
-  toast('⏳ Test en cours...', '');
-  showGsStatus('⏳ Connexion en cours...', true);
-  fetch(config.scriptUrl + '?action=ping')
-    .then(r => r.json())
-    .then(d => {
-      if(d.ok) {
-        showGsStatus('✅ Connexion réussie ! Google Sheets répond correctement. AppSheet est synchronisé.', true);
-        toast('✅ Google Sheets connecté !', 'success');
+function testSupabaseConnection() {
+  const config = getSupabaseConfig();
+  if(!config.url || !config.key) { toast('⚠ Configurez d\'abord Supabase', 'error'); return; }
+  toast('⏳ Test Supabase...', '');
+  showSbStatus('⏳ Connexion en cours...', true);
+  fetch(config.url + '/rest/v1/appareils?limit=1', { headers: sbHeaders(config) })
+    .then(r => {
+      if(r.ok || r.status === 200) {
+        showSbStatus('✅ Connexion Supabase réussie !', true);
+        toast('✅ Supabase connecté !', 'success');
+      } else if(r.status === 404) {
+        showSbStatus('⚠ Table "appareils" introuvable — créez-la avec le SQL fourni', false);
+        toast('⚠ Table manquante', 'error');
+      } else if(r.status === 401) {
+        showSbStatus('❌ Clé invalide (401) — vérifiez votre anon key', false);
+        toast('❌ Clé invalide', 'error');
       } else {
-        showGsStatus('❌ Erreur : ' + (d.message||'Réponse invalide'), false);
-        toast('✗ Erreur', 'error');
+        showSbStatus('❌ Erreur ' + r.status, false);
+        toast('❌ Erreur ' + r.status, 'error');
       }
     })
     .catch(() => {
-      showGsStatus('❌ Connexion impossible.\n• Le script est bien déployé ?\n• Accès : "Tout le monde" ?\n• URL correcte ?', false);
-      toast('✗ Connexion impossible', 'error');
+      showSbStatus('❌ Connexion impossible — vérifiez l\'URL Supabase', false);
+      toast('❌ Connexion impossible', 'error');
     });
 }
 
-function syncToGoogleSheets() {
-  const config = getGoogleSheetsConfig();
-  if(!config.scriptUrl) { toast('⚠ Configurez d\'abord Google Sheets', 'error'); return; }
+function syncToSupabase() {
+  const config = getSupabaseConfig();
+  if(!config.url || !config.key) { toast('⚠ Configurez d\'abord Supabase', 'error'); return; }
   if(!rows.length) { toast('⚠ Aucune donnée à envoyer', 'error'); return; }
-  toast('⬆ Envoi vers Google Sheets...', '');
-  showGsStatus('⏳ Envoi de ' + rows.length + ' appareils...', true);
-  const url = config.scriptUrl;
-  fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ action: 'save', data: rows })
-  })
-  .then(r => r.text())
-  .then(text => {
-    try {
-      const d = JSON.parse(text);
-      if(d.ok) {
-        showGsStatus('✅ ' + (d.saved||rows.length) + ' appareils envoyés ! AppSheet synchronisé.', true);
-        toast('✅ ' + (d.saved||rows.length) + ' appareils envoyés !', 'success');
-      } else { throw new Error(d.message||'Erreur'); }
-    } catch(e) { _syncViaGet(url); }
-  })
-  .catch(() => _syncViaGet(url));
-}
+  toast('⬆ Envoi vers Supabase...', '');
+  showSbStatus('⏳ Envoi de ' + rows.length + ' appareils...', true);
 
-function _syncViaGet(url) {
-  const encoded = encodeURIComponent(JSON.stringify(rows));
-  fetch(url + '?action=save&data=' + encoded)
-  .then(r => r.text())
-  .then(text => {
-    try {
-      const d = JSON.parse(text);
-      if(d.ok) {
-        showGsStatus('✅ ' + (d.saved||rows.length) + ' appareils envoyés !', true);
-        toast('✅ ' + (d.saved||rows.length) + ' appareils envoyés !', 'success');
-      } else {
-        showGsStatus('❌ ' + (d.message||'Échec'), false);
-        toast('✗ Erreur', 'error');
-      }
-    } catch(e) {
-      showGsStatus('❌ Redéploie le script avec une nouvelle version dans Apps Script.', false);
-      toast('✗ Erreur', 'error');
+  // Upsert = insert ou update si déjà existant
+  const headers = { ...sbHeaders(config), 'Prefer': 'resolution=merge-duplicates,return=minimal' };
+  const payload = rows.map(r => ({
+    numero_appareil: r.numeroAppareil || '',
+    adresse:         r.adresse        || '',
+    cp:              r.cp             || '',
+    ville:           r.ville          || '',
+    id_voip:         r.id             || '',
+    mdp:             r.mdp            || '',
+    ligne:           r.ligne          || '',
+    serveur:         r.serveur        || '',
+    port:            r.port           || '',
+    technicien:      r.technicien     || '',
+    voip:            r.voip           ? true : false,
+    voip_comment:    r.voipComment    || '',
+    voip_sim:        r.voipSimNumber  || '',
+    voip_iccid:      r.voipIccid      || '',
+    rapport_fini:    r.rapportFini    ? true : false
+  }));
+
+  fetch(config.url + '/rest/v1/appareils', {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(payload)
+  })
+  .then(r => {
+    if(r.ok || r.status === 201 || r.status === 200) {
+      showSbStatus('✅ ' + rows.length + ' appareils envoyés vers Supabase !', true);
+      toast('✅ ' + rows.length + ' appareils envoyés !', 'success');
+    } else {
+      return r.text().then(t => {
+        showSbStatus('❌ Erreur ' + r.status + ' : ' + t.substring(0,100), false);
+        toast('❌ Erreur envoi', 'error');
+      });
     }
   })
   .catch(() => {
-    showGsStatus('❌ Connexion impossible. Apps Script → Déployer → Nouvelle version → Déployer', false);
-    toast('✗ Connexion impossible', 'error');
+    showSbStatus('❌ Connexion impossible', false);
+    toast('❌ Connexion impossible', 'error');
   });
 }
 
-function syncFromGoogleSheets() {
-  const config = getGoogleSheetsConfig();
-  if(!config.scriptUrl) { toast('⚠ Configurez d\'abord Google Sheets', 'error'); return; }
-  toast('⬇ Récupération depuis Google Sheets...', '');
-  showGsStatus('⏳ Chargement des données...', true);
-  fetch(config.scriptUrl + '?action=load')
+function syncFromSupabase() {
+  const config = getSupabaseConfig();
+  if(!config.url || !config.key) { toast('⚠ Configurez d\'abord Supabase', 'error'); return; }
+  toast('⬇ Récupération depuis Supabase...', '');
+  showSbStatus('⏳ Chargement...', true);
+
+  fetch(config.url + '/rest/v1/appareils?order=created_at.asc', { headers: sbHeaders(config) })
   .then(r => r.json())
-  .then(d => {
-    if(d.ok && d.data) {
-      rows = d.data;
+  .then(data => {
+    if(Array.isArray(data)) {
+      rows = data.map(r => ({
+        numeroAppareil: r.numero_appareil || '',
+        adresse:        r.adresse         || '',
+        cp:             r.cp              || '',
+        ville:          r.ville           || '',
+        id:             r.id_voip         || '',
+        mdp:            r.mdp             || '',
+        ligne:          r.ligne           || '',
+        serveur:        r.serveur         || '',
+        port:           r.port            || '',
+        technicien:     r.technicien      || '',
+        voip:           r.voip            || false,
+        voipComment:    r.voip_comment    || '',
+        voipSimNumber:  r.voip_sim        || '',
+        voipIccid:      r.voip_iccid      || '',
+        rapportFini:    r.rapport_fini    || false
+      }));
       saveData();
       renderTable();
       updateStats();
-      showGsStatus('✅ ' + rows.length + ' appareils récupérés depuis Google Sheets.', true);
+      showSbStatus('✅ ' + rows.length + ' appareils récupérés !', true);
       toast('✅ ' + rows.length + ' appareils récupérés !', 'success');
     } else {
-      showGsStatus('❌ ' + (d.message||'Aucune donnée dans le Sheet'), false);
-      toast('✗ ' + (d.message||'Aucune donnée'), 'error');
+      showSbStatus('❌ ' + (data.message || 'Erreur données'), false);
+      toast('❌ Erreur', 'error');
     }
   })
   .catch(() => {
-    showGsStatus('❌ Erreur de connexion.', false);
-    toast('✗ Erreur de connexion', 'error');
+    showSbStatus('❌ Connexion impossible', false);
+    toast('❌ Erreur connexion', 'error');
   });
 }
 
-function copyAppsScript() {
-  const script = `const SHEET_NAME = 'Donnees';
-const COLUMNS = ['numeroAppareil','adresse','cp','ville','id','mdp','ligne','serveur','port','technicien','voip','voipComment','voipSimNumber','voipIccid','rapportFini'];
+function copySupabaseSQL() {
+  const sql = `-- Colle ce SQL dans Supabase → SQL Editor → Run
 
-function doGet(e) {
-  try {
-    var action = (e && e.parameter && e.parameter.action) ? e.parameter.action : 'load';
-    if (action === 'ping') return jsonOut({ ok: true, message: 'OK' });
-    if (action === 'load') return jsonOut(loadSheetData());
-    if (action === 'save') {
-      var data = e.parameter.data ? JSON.parse(decodeURIComponent(e.parameter.data)) : [];
-      return jsonOut(saveSheetData(data));
-    }
-    return jsonOut({ ok: false, message: 'Action inconnue' });
-  } catch(err) { return jsonOut({ ok: false, message: err.message }); }
-}
+-- Table appareils
+CREATE TABLE IF NOT EXISTS public.appareils (
+  id              BIGSERIAL PRIMARY KEY,
+  numero_appareil TEXT,
+  adresse         TEXT,
+  cp              TEXT,
+  ville           TEXT,
+  id_voip         TEXT,
+  mdp             TEXT,
+  ligne           TEXT,
+  serveur         TEXT,
+  port            TEXT,
+  technicien      TEXT,
+  voip            BOOLEAN DEFAULT FALSE,
+  voip_comment    TEXT,
+  voip_sim        TEXT,
+  voip_iccid      TEXT,
+  rapport_fini    BOOLEAN DEFAULT FALSE,
+  created_at      TIMESTAMPTZ DEFAULT NOW(),
+  updated_at      TIMESTAMPTZ DEFAULT NOW()
+);
 
-function doPost(e) {
-  try {
-    var body = JSON.parse(e.postData.contents);
-    if (body.action === 'save') return jsonOut(saveSheetData(body.data));
-    if (body.action === 'ping') return jsonOut({ ok: true });
-    return jsonOut({ ok: false, message: 'Action inconnue' });
-  } catch(err) { return jsonOut({ ok: false, message: err.message }); }
-}
+-- Table utilisateurs
+CREATE TABLE IF NOT EXISTS public.utilisateurs (
+  id         TEXT PRIMARY KEY,
+  username   TEXT UNIQUE NOT NULL,
+  password   TEXT NOT NULL,
+  role       TEXT NOT NULL DEFAULT 'technicien',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
 
-function jsonOut(obj) {
-  var out = ContentService.createTextOutput(JSON.stringify(obj));
-  out.setMimeType(ContentService.MimeType.JSON);
-  return out;
-}
+-- Insérer les utilisateurs par défaut
+INSERT INTO public.utilisateurs (id, username, password, role) VALUES
+  ('1', 'admin',       'admin1234', 'administrateur'),
+  ('2', 'responsable', 'resp1234',  'responsable'),
+  ('3', 'technicien',  'tech1234',  'technicien')
+ON CONFLICT (username) DO NOTHING;
 
-function loadSheetData() {
-  try {
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = ss.getSheetByName(SHEET_NAME);
-    if (!sheet) return { ok: true, data: [] };
-    var vals = sheet.getDataRange().getValues();
-    if (vals.length < 2) return { ok: true, data: [] };
-    var headers = vals[0].map(function(h){ return String(h); });
-    var data = vals.slice(1).map(function(row) {
-      var obj = {};
-      headers.forEach(function(h,i){ obj[h] = String(row[i]||''); });
-      return obj;
-    });
-    return { ok: true, data: data, count: data.length };
-  } catch(err) { return { ok: false, message: err.message }; }
-}
+-- Sécurité (accès avec clé anon)
+ALTER TABLE public.appareils    ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.utilisateurs ENABLE ROW LEVEL SECURITY;
 
-function saveSheetData(rows) {
-  try {
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = ss.getSheetByName(SHEET_NAME);
-    if (!sheet) sheet = ss.insertSheet(SHEET_NAME);
-    sheet.clearContents();
-    if (!rows || rows.length === 0) return { ok: true, saved: 0 };
-    var values = [COLUMNS].concat(rows.map(function(r){
-      return COLUMNS.map(function(h){ return String(r[h]||''); });
-    }));
-    sheet.getRange(1,1,values.length,COLUMNS.length).setValues(values);
-    sheet.getRange(1,1,1,COLUMNS.length).setBackground('#15803d').setFontColor('#ffffff').setFontWeight('bold');
-    sheet.setFrozenRows(1);
-    return { ok: true, saved: rows.length };
-  } catch(err) { return { ok: false, message: err.message }; }
-}`;
+CREATE POLICY "allow_all_appareils"    ON public.appareils    FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "allow_all_utilisateurs" ON public.utilisateurs FOR ALL USING (true) WITH CHECK (true);`;
 
   const copy = () => {
     const ta = document.createElement('textarea');
-    ta.value = script; ta.style.position='fixed'; ta.style.opacity='0';
+    ta.value = sql; ta.style.position = 'fixed'; ta.style.opacity = '0';
     document.body.appendChild(ta); ta.select();
     document.execCommand('copy'); document.body.removeChild(ta);
-    toast('✓ Script copié !', 'success');
+    toast('✓ SQL copié !', 'success');
   };
-  navigator.clipboard ? navigator.clipboard.writeText(script).then(()=>toast('✓ Script copié !','success')).catch(copy) : copy();
+  navigator.clipboard ? navigator.clipboard.writeText(sql).then(() => toast('✓ SQL copié ! Colle dans Supabase → SQL Editor → Run', 'success')).catch(copy) : copy();
 }
+
+// Alias compatibilité (supprimés mais gardés vides pour éviter erreurs)
+function getGoogleSheetsConfig() { return {}; }
+function saveGoogleSheetsConfig() {}
+function loadGoogleSheetsConfigUI() { loadSupabaseConfigUI(); }
+function syncToGoogleSheets() { syncToSupabase(); }
+function syncFromGoogleSheets() { syncFromSupabase(); }
+function showGsStatus(msg, ok) { showSbStatus(msg, ok); }
 
 function doLogin() {
   const username = document.getElementById('login-username').value.trim();
-  const pw = document.getElementById('login-pw').value;
-  const users = getUsers();
+  const pw       = document.getElementById('login-pw').value;
+  const errEl    = document.getElementById('login-err');
 
-  const user = users.find(u => u.username === username && u.password === pw);
+  const tryLogin = (sbUsers) => {
+    const allUsers = [...defaults.users, ...(sbUsers||[])];
+    const userMap  = {};
+    // localStorage écrase defaults, Supabase écrase localStorage
+    allUsers.forEach(u => { userMap[u.username] = u; });
+    const user = Object.values(userMap).find(u => u.username === username && u.password === pw);
 
-  if(user) {
-    currentUser = user;
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('app').style.display = 'flex';
-    updateSidebarForRole(user);
-    loadData();
-    toast(`Bienvenue, ${user.username} (${user.role})`, 'success');
+    if(user) {
+      currentUser = user;
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('app').style.display = 'flex';
+      updateSidebarForRole(user);
+      loadData();
+      toast('Bienvenue ' + user.username, 'success');
+
+      // Sync données appareils depuis Supabase
+      const config = getSupabaseConfig();
+      if(config.url && config.key) {
+        fetch(config.url + '/rest/v1/appareils?order=created_at.asc', {
+          headers: { 'apikey': config.key, 'Authorization': 'Bearer ' + config.key }
+        })
+        .then(r => r.json())
+        .then(data => {
+          if(Array.isArray(data) && data.length > 0) {
+            rows = data.map(r => ({
+              numeroAppareil: r.numero_appareil||'', adresse: r.adresse||'',
+              cp: r.cp||'', ville: r.ville||'', id: r.id_voip||'',
+              mdp: r.mdp||'', ligne: r.ligne||'', serveur: r.serveur||'',
+              port: r.port||'', technicien: r.technicien||'',
+              voip: r.voip||false, voipComment: r.voip_comment||'',
+              voipSimNumber: r.voip_sim||'', voipIccid: r.voip_iccid||'',
+              rapportFini: r.rapport_fini||false
+            }));
+            saveData(); renderTable(); updateStats();
+            toast('✅ ' + rows.length + ' appareils synchronisés', 'success');
+          }
+        })
+        .catch(() => {});
+      }
+    } else {
+      if(errEl) errEl.style.display = 'block';
+      document.getElementById('login-pw').value = '';
+      document.getElementById('login-pw').focus();
+    }
+  };
+
+  if(errEl) errEl.style.display = 'none';
+
+  // Récupérer les utilisateurs depuis Supabase, puis tenter le login
+  const config = getSupabaseConfig();
+  if(config.url && config.key) {
+    fetch(config.url + '/rest/v1/utilisateurs', { headers: sbHeaders(config) })
+      .then(r => r.ok ? r.json() : [])
+      .then(data => {
+        if(Array.isArray(data) && data.length > 0) {
+          localStorage.setItem(USERS_KEY, JSON.stringify(data));
+        }
+        tryLogin(Array.isArray(data) ? data : []);
+      })
+      .catch(() => tryLogin([]));
   } else {
-    document.getElementById('login-err').style.display = 'block';
-    document.getElementById('login-pw').classList.add('error');
-    setTimeout(() => document.getElementById('login-pw').classList.remove('error'), 300);
+    // Pas de Supabase → utiliser localStorage
+    tryLogin((() => { try { return JSON.parse(localStorage.getItem(USERS_KEY))||[]; } catch(e){return[];} })());
   }
 }
 
 function logout() {
+  // Sauvegarde vers Supabase avant déconnexion
+  const config = getSupabaseConfig();
+  if(config.url && config.key && rows.length > 0) syncToSupabase();
+
   document.getElementById('app').style.display = 'none';
   document.getElementById('login-screen').style.display = 'flex';
   document.getElementById('login-username').value = '';
@@ -4734,7 +4882,7 @@ function updateVoipUI() {
 // ═══════════════ SETTINGS ═══════════════
 function openSettings() {
   loadSmsGatewayConfig();
-  loadGoogleSheetsConfigUI();
+  loadSupabaseConfigUI();
   // Appliquer l'état des boutons thème
   const mode = localStorage.getItem(THEME_MODE_KEY) || 'dark';
   setTimeout(() => applyAppTheme(mode), 50);
