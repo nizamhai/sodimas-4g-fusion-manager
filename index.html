@@ -32,6 +32,144 @@
     --mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', monospace;
   }
 
+  /* ══════════ THÈME CLAIR ══════════ */
+  body.theme-light {
+    --bg: #f0f4f8;
+    --bg2: #ffffff;
+    --bg3: #e8edf3;
+    --border: #dde3ec;
+    --border2: #c4ccd8;
+    --text: #1a2332;
+    --text-dim: #4a5568;
+    --text-muted: #718096;
+    --amber-glow: rgba(21, 128, 61, 0.08);
+    background: #f0f4f8;
+    color: #1a2332;
+  }
+
+  /* Body général */
+  body.theme-light .main { background: transparent; }
+  body.theme-light .main-content { background: #f0f4f8; }
+
+  /* Sidebar */
+  body.theme-light .sidebar {
+    background: #ffffff;
+    border-right: 1px solid #dde3ec;
+    box-shadow: 2px 0 16px rgba(0,0,0,0.06);
+  }
+  body.theme-light .sidebar-logo { color: var(--amber); }
+  body.theme-light .sidebar-item { color: #4a5568; }
+  body.theme-light .sidebar-item svg { stroke: #718096; }
+  body.theme-light .sidebar-item:hover { background: rgba(21,128,61,0.07); color: var(--amber); }
+  body.theme-light .sidebar-item:hover svg { stroke: var(--amber); }
+  body.theme-light .sidebar-item.active { background: rgba(21,128,61,0.10); color: var(--amber); }
+  body.theme-light .sidebar-footer { border-top: 1px solid #dde3ec; }
+
+  /* Topbar */
+  body.theme-light .topbar {
+    background: #ffffff;
+    border-bottom: 1px solid #dde3ec;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  body.theme-light .topbar-title { color: #1a2332; }
+
+  /* Stats */
+  body.theme-light .stat-card {
+    background: #ffffff;
+    border: 1px solid #dde3ec;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  body.theme-light .stat-label { color: #718096; }
+
+  /* Toolbar */
+  body.theme-light .toolbar {
+    background: #ffffff;
+    border: 1px solid #dde3ec;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  body.theme-light .toolbar-row-2 { border-top-color: #dde3ec; }
+  body.theme-light .filter-tab {
+    background: #f0f4f8;
+    border: 1px solid #dde3ec;
+    color: #4a5568;
+  }
+  body.theme-light .filter-tab:hover:not(.active) { border-color: var(--amber); color: var(--amber); background: rgba(21,128,61,0.05); }
+  body.theme-light .search-box {
+    background: #f0f4f8;
+    border: 1px solid #dde3ec;
+  }
+  body.theme-light .search-box input { color: #1a2332; background: transparent; }
+  body.theme-light .search-box input::placeholder { color: #718096; }
+  body.theme-light select.form-input { background: #f0f4f8; color: #1a2332; border-color: #dde3ec; }
+
+  /* TABLE */
+  body.theme-light .table-wrap {
+    background: #ffffff;
+    border: 1px solid #dde3ec;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  body.theme-light th {
+    background: #f8fafc;
+    color: #4a5568;
+    border-bottom: 2px solid #dde3ec;
+  }
+  body.theme-light td {
+    color: #1a2332;
+    border-bottom: 1px solid #f0f4f8;
+    background: #ffffff;
+  }
+  body.theme-light tr:hover td { background: rgba(21,128,61,0.04) !important; }
+  body.theme-light .cell-addr { color: #4a5568; }
+  body.theme-light .cell-ligne { color: var(--amber); }
+  body.theme-light .voip-label { color: #718096; }
+  body.theme-light .voip-at { color: #718096; }
+
+  /* Boutons dans table */
+  body.theme-light .btn-primary { box-shadow: 0 2px 8px rgba(21,128,61,0.25); }
+  body.theme-light .btn-outline {
+    border-color: #c4ccd8;
+    color: #4a5568;
+    background: #f8fafc;
+  }
+  body.theme-light .btn-outline:hover { border-color: var(--amber); color: var(--amber); background: rgba(21,128,61,0.05); }
+
+  /* Modals */
+  body.theme-light .modal-overlay { background: rgba(15,23,42,0.4); }
+  body.theme-light .modal {
+    background: #ffffff;
+    border: 1px solid #dde3ec;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+  body.theme-light .modal-header {
+    background: #f8fafc;
+    border-bottom: 1px solid #dde3ec;
+  }
+  body.theme-light .modal-title { color: #1a2332; }
+  body.theme-light .modal-close { color: #718096; background: #f0f4f8; border-color: #dde3ec; }
+  body.theme-light .modal-close:hover { background: #e2e8f0; color: #1a2332; }
+  body.theme-light .modal-body { background: #ffffff; }
+
+  /* Formulaires dans modal */
+  body.theme-light .form-input {
+    background: #f8fafc;
+    border: 1.5px solid #dde3ec;
+    color: #1a2332;
+  }
+  body.theme-light .form-input:focus { background: #ffffff; border-color: var(--amber); box-shadow: 0 0 0 3px rgba(21,128,61,0.10); }
+  body.theme-light .form-input::placeholder { color: #a0aec0; }
+  body.theme-light .form-label { color: #2d3748; }
+  body.theme-light .form-hint { color: #718096; }
+  body.theme-light .settings-section {
+    background: #f8fafc;
+    border: 1px solid #dde3ec;
+  }
+  body.theme-light .settings-title { color: var(--amber); }
+
+  /* Toasts & misc */
+  body.theme-light .toast-wrap .toast { box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+  body.theme-light .mobile-page-title { color: var(--amber); }
+  body.theme-light .version-badge { background: rgba(21,128,61,0.08); color: var(--amber); border-color: rgba(21,128,61,0.2); }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
@@ -637,15 +775,27 @@
   /* ══════════ TOOLBAR ══════════ */
   .toolbar {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 24px;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 20px;
     background: rgba(30, 41, 59, 0.6);
     backdrop-filter: blur(10px);
     border: 1px solid var(--border);
     border-radius: 16px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .toolbar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .toolbar-row-2 {
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
   }
 
   .toolbar-left {
@@ -752,16 +902,12 @@
     font-size: 12px;
   }
 
-  .voip-at {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-muted);
-  }
-
+  .voip-at { color: var(--text-dim); font-size: 18px; font-weight: 700; transition: color .3s; }
   .voip-at.blink-amber {
     color: var(--amber);
     animation: blink-amber 1.2s ease-in-out infinite;
   }
+  .voip-at.nok { color: var(--red); }
 
   @keyframes blink-amber {
     0%,100%{ opacity: 1; color: var(--amber); }
@@ -769,7 +915,8 @@
   }
 
   .voip-label { color: var(--text-dim); font-size: 11px; }
-  .voip-label.programmed { color: var(--amber); font-weight: 500; }
+  .voip-label.programmed { color: var(--amber); font-weight: 600; }
+  .voip-label.nok { color: var(--red); font-weight: 600; }
 
   /* VERSION BADGE */
   .badge {
@@ -1743,6 +1890,36 @@
 </head>
 <body>
 
+<!-- ═══════════════════════════ ÉCRAN LICENCE ═══════════════════════════ -->
+<div id="licence-screen" style="position:fixed;inset:0;background:#0f172a;display:flex;align-items:center;justify-content:center;z-index:200;flex-direction:column;gap:24px">
+  <div style="text-align:center;margin-bottom:8px">
+    <div style="font-size:48px;margin-bottom:12px">🛗</div>
+    <div style="font-size:22px;font-weight:700;color:#fff;letter-spacing:0.1em;text-transform:uppercase">SOD 4G FUSION</div>
+    <div style="font-size:12px;color:#64748b;letter-spacing:0.2em;text-transform:uppercase;margin-top:4px">Logiciel protégé — Licence requise</div>
+  </div>
+
+  <div style="background:#1e293b;border:1px solid #334155;border-radius:16px;padding:32px;width:100%;max-width:420px">
+    <div style="font-size:13px;font-weight:600;color:#94a3b8;margin-bottom:8px;letter-spacing:0.05em;text-transform:uppercase">Clé de licence</div>
+    <input type="text" id="licence-key" placeholder="SOD-XXXX-XXXX-XXXX"
+      style="width:100%;padding:14px;background:#0f172a;border:2px solid #334155;border-radius:10px;color:#fff;font-size:15px;font-family:monospace;letter-spacing:0.1em;outline:none;text-transform:uppercase;margin-bottom:12px"
+      oninput="this.value=this.value.toUpperCase()"
+      onkeydown="if(event.key==='Enter')activateLicence()">
+    <div id="licence-err" style="color:#ef4444;font-size:12px;margin-bottom:12px;display:none;text-align:center"></div>
+    <button onclick="activateLicence()" id="licence-btn"
+      style="width:100%;padding:14px;background:#15803d;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .2s">
+      🔑 Activer la licence
+    </button>
+    <div id="licence-checking" style="display:none;text-align:center;color:#64748b;font-size:12px;margin-top:10px">
+      ⏳ Vérification en cours...
+    </div>
+  </div>
+
+  <div style="font-size:11px;color:#334155;text-align:center">
+    Pour obtenir une licence : contact@sod4gfusion.fr<br>
+    © 2026 SOD 4G FUSION — Tous droits réservés
+  </div>
+</div>
+
 <!-- ═══════════════════════════ LOGIN ═══════════════════════════ -->
 <div id="login-screen">
 
@@ -1848,6 +2025,13 @@
         </svg>
         Exporter Excel
       </div>
+      <div class="sidebar-item" onclick="openLicenceManager()" id="sidebar-licence-btn" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        Licences
+      </div>
       <div class="sidebar-item" onclick="openSettings()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="3"/>
@@ -1921,23 +2105,54 @@
 
     <!-- TOOLBAR -->
     <div class="toolbar">
-      <div class="toolbar-left">
+      <!-- LIGNE 1 : filtres + recherche + technicien -->
+      <div class="toolbar-row toolbar-row-1">
         <div class="filter-tabs">
-          <button class="filter-tab active" data-filter="all" onclick="setFilter(this,'all')">TOUS</button>
-          <button class="filter-tab" data-filter="voip" onclick="setFilter(this,'voip')">✓ VoIP OK</button>
-          <button class="filter-tab" data-filter="nok" onclick="setFilter(this,'nok')">✗ NON PROG.</button>
+          <button class="filter-tab active" data-filter="all"  onclick="setFilter(this,'all')">TOUS</button>
+          <button class="filter-tab" data-filter="voip" onclick="setFilter(this,'voip')">✓ PROGRAMMÉ</button>
+          <button class="filter-tab" data-filter="nok"  onclick="setFilter(this,'nok')">✗ NON PROG.</button>
+          <button class="filter-tab" data-filter="plan" onclick="setFilter(this,'plan')">📅 PLANIFIÉ</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-left:auto">
+          <select id="technician-filter" class="form-input" style="min-width:160px;padding:8px 12px;font-size:12px" onchange="renderTable()">
+            <option value="">Tous techniciens</option>
+          </select>
+          <div class="search-box"><input type="text" id="search" placeholder="Rechercher..." oninput="renderTable()"></div>
         </div>
       </div>
-      <div class="toolbar-right">
-        <select id="technician-filter" class="form-input" style="width:200px;padding:8px 12px;font-size:12px" onchange="renderTable()">
-          <option value="">Tous techniciens</option>
-        </select>
-        <div class="search-box"><input type="text" id="search" placeholder="Rechercher..." oninput="renderTable()"></div>
-        <button class="btn btn-primary btn-sm" id="bulk-sms-btn" onclick="openBulkSmsModal()" style="display:none">📱 SMS (<span id="bulk-sms-count">0</span>)</button>
-        <button class="btn btn-outline btn-sm" id="bulk-ok-btn" onclick="bulkSetStatus('ok')" style="display:none;border-color:var(--green);color:var(--green)">✓ PROGRAMMÉ (<span id="bulk-ok-count">0</span>)</button>
-        <button class="btn btn-outline btn-sm" id="bulk-nok-btn" onclick="bulkSetStatus('nok')" style="display:none;border-color:var(--red);color:var(--red)">✗ NON PROG. (<span id="bulk-nok-count">0</span>)</button>
-        <button class="btn btn-danger btn-sm" id="delete-sel-btn" onclick="deleteSelected()" style="display:none">🗑 SUPPR. (<span id="sel-count">0</span>)</button>
-        <button class="btn btn-outline btn-sm" onclick="clearData()" id="clear-btn" style="display:none">🗑 EFFACER</button>
+
+      <!-- LIGNE 2 : actions sur sélection (cachée si rien sélectionné) -->
+      <div class="toolbar-row toolbar-row-2" id="selection-bar" style="display:none">
+        <div style="font-size:11px;color:var(--text-dim);font-weight:600;white-space:nowrap">
+          <span id="sel-count">0</span> sélectionné(s)
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="btn btn-sm" id="bulk-ok-btn" onclick="bulkSetStatus('ok')"
+            style="background:rgba(21,128,61,0.2);color:var(--green);border:1px solid var(--green)">
+            ✓ Programmé
+          </button>
+          <button class="btn btn-sm" id="bulk-nok-btn" onclick="bulkSetStatus('nok')"
+            style="background:rgba(220,38,38,0.15);color:var(--red);border:1px solid var(--red)">
+            ✗ Non prog.
+          </button>
+          <button class="btn btn-sm" id="bulk-plan-btn" onclick="bulkSetStatus('plan')"
+            style="background:rgba(100,116,139,0.15);color:var(--text-dim);border:1px solid var(--border)">
+            📅 Planifié
+          </button>
+          <button class="btn btn-sm" id="bulk-sms-btn" onclick="openBulkSmsModal()"
+            style="background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid #60a5fa">
+            📱 SMS (<span id="bulk-sms-count">0</span>)
+          </button>
+          <div style="width:1px;height:20px;background:var(--border);margin:0 2px"></div>
+          <button class="btn btn-sm" id="delete-sel-btn" onclick="deleteSelected()"
+            style="background:rgba(220,38,38,0.1);color:var(--red);border:1px solid rgba(220,38,38,0.3)">
+            🗑 Supprimer
+          </button>
+          <button class="btn btn-sm" onclick="clearData()"
+            style="background:rgba(100,116,139,0.1);color:var(--text-dim);border:1px solid var(--border)">
+            🗑 Tout effacer
+          </button>
+        </div>
       </div>
     </div>
 
@@ -2098,49 +2313,33 @@
         <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
           <div class="voip-indicator" id="modal-voip-ind">
             <span class="voip-at" id="modal-at">@</span>
-            <span class="voip-label" id="modal-voip-label">NON PROGRAMMÉ</span>
+            <span class="voip-label" id="modal-voip-label">PLANIFIÉ</span>
           </div>
-          <div style="display:flex;gap:8px">
-            <button class="btn btn-primary btn-sm" id="btn-voip-ok" onclick="setVoipStatus('ok')" style="gap:6px">
-              ✓ PROGRAMMÉ
-            </button>
-            <button class="btn btn-danger btn-sm" id="btn-voip-nok" onclick="setVoipStatus('nok')" style="gap:6px">
-              ✗ NON PROGRAMMÉ
-            </button>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button class="btn btn-outline btn-sm" id="btn-voip-ok" onclick="setVoipStatus('ok')">✓ PROGRAMMÉ</button>
+            <button class="btn btn-outline btn-sm" id="btn-voip-nok" onclick="setVoipStatus('nok')">✗ NON PROGRAMMÉ</button>
+            <button class="btn btn-outline btn-sm" id="btn-voip-plan" onclick="setVoipStatus('plan')" style="border-color:var(--text-dim);color:var(--text-dim)">📅 PLANIFIÉ</button>
           </div>
         </div>
       </div>
 
-      <!-- Champs de clôture VoIP (affichés quand on clique MARQUER PROGRAMMÉ) -->
-      <div id="voip-closure-fields" style="display:none;background:rgba(21,128,61,0.08);border:2px solid var(--amber);border-radius:12px;padding:16px;margin-bottom:20px">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
-          <div>
-            <div id="voip-closure-titre" style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:2px;text-transform:uppercase;font-weight:700">📋 FICHE DE CLÔTURE</div>
-            <div style="font-size:11px;color:var(--text-dim);margin-top:2px">Renseignez les informations avant de confirmer</div>
+      <!-- Formulaire clôture (NON PROGRAMMÉ) -->
+      <div id="voip-closure-fields" style="display:none;background:rgba(220,38,38,0.07);border:2px solid var(--red);border-radius:12px;padding:16px;margin-bottom:20px">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:12px">📋 CLÔTURE — NON PROGRAMMÉ</div>
+        <div style="display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap">
+          <div style="flex:1;min-width:120px">
+            <label class="form-label" style="font-size:11px">📱 N° Tél <span style="color:var(--text-muted)">(optionnel)</span></label>
+            <input type="tel" id="voip-sim-number" class="form-input" placeholder="Ex: 0612345678">
           </div>
-        </div>
-        
-        <div style="margin-bottom:12px">
-          <label class="form-label">💬 Commentaire <span style="color:var(--text-muted);font-size:10px">(optionnel — problème rencontré...)</span></label>
-          <textarea id="voip-comment" class="form-input" rows="2" placeholder="RAS / Tout OK / Problème antenne..."></textarea>
-        </div>
-
-        <div style="display:flex;gap:12px;margin-bottom:14px">
-          <div style="flex:1">
-            <label class="form-label">📱 N° SIM <span style="color:var(--red);font-size:10px">*</span></label>
-            <input type="text" id="voip-sim-number" class="form-input" placeholder="Ex: 0612345678">
-          </div>
-          <div style="flex:1">
-            <label class="form-label">🔢 N° ICCID <span style="color:var(--red);font-size:10px">*</span></label>
+          <div style="flex:1;min-width:120px">
+            <label class="form-label" style="font-size:11px">🔢 ICCID <span style="color:var(--text-muted)">(optionnel)</span></label>
             <input type="text" id="voip-iccid" class="form-input" placeholder="Ex: 8933...">
           </div>
         </div>
-
+        <input type="hidden" id="voip-comment" value="">
         <div style="display:flex;gap:10px">
-          <button class="btn btn-primary" style="flex:1" onclick="confirmVoipProgramming()">
-            ✓ CONFIRMER — CLÔTURER
-          </button>
-          <button class="btn btn-outline btn-sm" onclick="cancelVoipProgramming()">✗ Annuler</button>
+          <button class="btn btn-danger" style="flex:1" onclick="confirmVoipProgramming()">✗ CONFIRMER NON PROGRAMMÉ</button>
+          <button class="btn btn-outline btn-sm" onclick="cancelVoipProgramming()">Annuler</button>
         </div>
       </div>
 
@@ -2245,6 +2444,85 @@
 </div>
 
 <!-- ═══════════════════════════ MODAL: SETTINGS ═══════════════════════════ -->
+<!-- ═══ MODAL GESTIONNAIRE LICENCES ═══ -->
+<div class="modal-overlay" id="modal-licences" style="display:none" onclick="closeModalIf(event,'modal-licences')">
+  <div class="modal" style="max-width:640px;width:95%">
+    <div class="modal-header">
+      <div class="modal-title">🔑 Gestionnaire de licences</div>
+      <button class="modal-close" onclick="closeModal('modal-licences')">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Générer nouvelle clé -->
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-weight:700">✨ GÉNÉRER UNE NOUVELLE CLÉ</div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+          <div style="flex:1;min-width:160px">
+            <label class="form-label">Nom du client</label>
+            <input type="text" id="lic-client-name" class="form-input" placeholder="Ex: DUPONT, MAIRIE13...">
+          </div>
+          <div style="flex:0 0 120px">
+            <label class="form-label">Durée (jours)</label>
+            <select id="lic-duration" class="form-input">
+              <option value="30">30 jours</option>
+              <option value="90">90 jours</option>
+              <option value="180">6 mois</option>
+              <option value="365" selected>1 an</option>
+              <option value="730">2 ans</option>
+              <option value="3650">10 ans</option>
+            </select>
+          </div>
+          <div style="flex:0 0 120px">
+            <label class="form-label">Type</label>
+            <select id="lic-type" class="form-input">
+              <option value="STD">Standard</option>
+              <option value="PRO">Pro</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="generateLicenceKey()" style="width:100%">
+          ⚡ GÉNÉRER LA CLÉ
+        </button>
+
+        <!-- Clé générée -->
+        <div id="generated-key-box" style="display:none;margin-top:16px;background:var(--bg);border:2px solid var(--amber);border-radius:10px;padding:16px;text-align:center">
+          <div style="font-size:11px;color:var(--text-dim);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Clé générée</div>
+          <div id="generated-key-val" style="font-family:var(--mono);font-size:20px;font-weight:700;color:var(--amber);letter-spacing:0.15em;margin-bottom:12px"></div>
+          <div style="font-size:11px;color:var(--text-dim);margin-bottom:12px" id="generated-key-info"></div>
+          <div style="display:flex;gap:8px;justify-content:center">
+            <button class="btn btn-primary btn-sm" onclick="copyGeneratedKey()">📋 Copier</button>
+            <button class="btn btn-outline btn-sm" onclick="saveKeyToList()">💾 Sauvegarder</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Liste des clés sauvegardées -->
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:20px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:2px;text-transform:uppercase;font-weight:700">📋 LICENCES ACTIVES</div>
+          <button class="btn btn-outline btn-sm" onclick="exportLicences()">⬇ Exporter CSV</button>
+        </div>
+        <div id="licences-list" style="max-height:280px;overflow-y:auto">
+          <div style="text-align:center;color:var(--text-dim);font-size:12px;padding:20px">Aucune licence sauvegardée</div>
+        </div>
+      </div>
+
+      <!-- Ma licence actuelle -->
+      <div style="margin-top:16px;padding:12px 16px;background:rgba(21,128,61,0.08);border:1px solid rgba(21,128,61,0.3);border-radius:10px;display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-size:11px;color:var(--text-dim);margin-bottom:2px">Ma clé active</div>
+          <div style="font-family:var(--mono);font-size:13px;color:var(--amber);font-weight:700" id="my-current-licence">—</div>
+        </div>
+        <button class="btn btn-outline btn-sm" style="color:var(--red);border-color:var(--red)" onclick="revokeLicence()">🗑 Réinitialiser</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="modal-settings" style="display:none" onclick="closeModalIf(event,'modal-settings')">
   <div class="modal">
     <div class="modal-header">
@@ -2281,6 +2559,35 @@
           <label class="form-label">Modèle Personnalisé (par défaut)</label>
           <textarea id="sms-template-custom" class="form-input" rows="2" placeholder="Votre modèle personnalisé..."></textarea>
           <div class="form-hint">Variables: {serveur}, {port}, {id}, {mdp}, {ligne}</div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-title">☁ GOOGLE SHEETS — SAUVEGARDE CLOUD</div>
+        <div style="background:rgba(21,128,61,0.10);border:1px solid rgba(21,128,61,0.3);border-radius:10px;padding:14px;margin-bottom:16px">
+          <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:8px">💡 COMMENT CONFIGURER ?</div>
+          <div style="font-size:11px;color:var(--text-dim);line-height:1.8">
+            1. Crée un Google Sheet sur <strong style="color:var(--text)">sheets.google.com</strong><br>
+            2. Va dans <strong style="color:var(--text)">Extensions → Apps Script</strong><br>
+            3. Colle le script → Déploie comme <strong style="color:var(--text)">Application Web (accès : Tout le monde)</strong><br>
+            4. Copie l'URL de déploiement ci-dessous
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">🔗 URL Apps Script (Web App)</label>
+          <input type="text" id="gs-script-url" class="form-input" placeholder="https://script.google.com/macros/s/XXXX/exec">
+          <div class="form-hint">URL depuis "Déployer → Gérer les déploiements"</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+          <button class="btn btn-primary btn-sm" onclick="saveGoogleSheetsConfig()">💾 Enregistrer</button>
+          <button class="btn btn-outline btn-sm" onclick="testGoogleSheetsConnection()">🧪 Tester</button>
+          <button class="btn btn-outline btn-sm" onclick="syncToGoogleSheets()" style="color:var(--amber);border-color:var(--amber)">⬆ Envoyer vers Sheet</button>
+          <button class="btn btn-outline btn-sm" onclick="syncFromGoogleSheets()" style="color:var(--green);border-color:var(--green)">⬇ Récupérer du Sheet</button>
+        </div>
+        <div style="padding:10px;background:rgba(100,116,139,0.1);border-radius:6px">
+          <div style="font-size:10px;color:var(--amber);font-weight:700;margin-bottom:4px">📜 SCRIPT APPS SCRIPT</div>
+          <div style="font-size:10px;color:var(--text-dim);margin-bottom:8px">Copie ce script dans ton Google Sheet → Extensions → Apps Script</div>
+          <button class="btn btn-outline btn-sm" style="font-size:10px" onclick="copyAppsScript()">📋 Copier le script</button>
         </div>
       </div>
 
@@ -2373,13 +2680,49 @@
       </div>
 
       <div class="settings-section">
-        <div class="settings-title">THÈME ET COULEURS</div>
+        <div class="settings-title">🎨 THÈME ET APPARENCE</div>
+
+        <!-- Sélecteur Sombre / Clair -->
+        <div class="form-group">
+          <label class="form-label">Mode d'affichage</label>
+          <div style="display:flex;gap:10px">
+            <button id="btn-theme-dark" onclick="setAppTheme('dark')"
+              style="flex:1;padding:14px;border-radius:10px;border:2px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:13px;font-weight:600;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px">
+              🌙 Sombre
+            </button>
+            <button id="btn-theme-light" onclick="setAppTheme('light')"
+              style="flex:1;padding:14px;border-radius:10px;border:2px solid var(--border);background:var(--bg2);color:var(--text);cursor:pointer;font-size:13px;font-weight:600;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px">
+              ☀️ Clair
+            </button>
+          </div>
+        </div>
+
+        <!-- Couleur d'accentuation -->
         <div class="form-group">
           <label class="form-label">Couleur principale</label>
-          <div style="display:flex;align-items:center;gap:12px">
-            <input type="color" id="theme-color" value="#15803d" style="width:50px;height:40px;border:none;cursor:pointer;border-radius:4px">
-            <div style="font-family:var(--mono);font-size:12px;color:var(--text-dim)">
-              Sélectionnez une couleur pour personnaliser l'interface
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <input type="color" id="theme-color" value="#15803d"
+              style="width:48px;height:44px;border:none;cursor:pointer;border-radius:8px;padding:2px">
+            <!-- Couleurs prédéfinies -->
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button onclick="setAccentColor('#15803d')" title="Vert (défaut)"
+                style="width:32px;height:32px;border-radius:50%;background:#15803d;border:2px solid transparent;cursor:pointer;transition:transform .2s"
+                onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform=''"></button>
+              <button onclick="setAccentColor('#2563eb')" title="Bleu"
+                style="width:32px;height:32px;border-radius:50%;background:#2563eb;border:2px solid transparent;cursor:pointer;transition:transform .2s"
+                onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform=''"></button>
+              <button onclick="setAccentColor('#7c3aed')" title="Violet"
+                style="width:32px;height:32px;border-radius:50%;background:#7c3aed;border:2px solid transparent;cursor:pointer;transition:transform .2s"
+                onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform=''"></button>
+              <button onclick="setAccentColor('#dc2626')" title="Rouge"
+                style="width:32px;height:32px;border-radius:50%;background:#dc2626;border:2px solid transparent;cursor:pointer;transition:transform .2s"
+                onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform=''"></button>
+              <button onclick="setAccentColor('#d97706')" title="Orange"
+                style="width:32px;height:32px;border-radius:50%;background:#d97706;border:2px solid transparent;cursor:pointer;transition:transform .2s"
+                onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform=''"></button>
+              <button onclick="setAccentColor('#0891b2')" title="Cyan"
+                style="width:32px;height:32px;border-radius:50%;background:#0891b2;border:2px solid transparent;cursor:pointer;transition:transform .2s"
+                onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform=''"></button>
             </div>
           </div>
         </div>
@@ -2404,21 +2747,14 @@
       </div>
 
       <div class="settings-section">
-        <div class="settings-title">GESTION DES UTILISATEURS</div>
-        <div style="margin-bottom:16px">
-          <button class="btn btn-primary btn-sm" onclick="showAddUserModal()">+ AJOUTER UN UTILISATEUR</button>
-        </div>
-        <div id="users-list" style="display:flex;flex-direction:column;gap:8px;max-height:200px;overflow-y:auto">
-          <!-- Users will be rendered here -->
-        </div>
-      </div>
+        <div class="settings-title">👥 GESTION DES UTILISATEURS</div>
 
-      <div class="settings-section">
-        <div class="settings-title">SÉCURITÉ</div>
-        <div class="form-group">
-          <label class="form-label">Changer le mot de passe admin</label>
-          <input class="form-input" type="password" id="new-pw" placeholder="Nouveau mot de passe">
-        </div>
+        <button class="btn btn-primary" onclick="showAddUserModal()" style="width:100%;margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:8px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          AJOUTER UN UTILISATEUR
+        </button>
+
+        <div id="users-list" style="display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto"></div>
       </div>
 
       <button class="btn btn-primary" style="width:100%" onclick="saveSettings()">💾 ENREGISTRER</button>
@@ -2426,9 +2762,9 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════ MODAL: ADD USER ═══════════════════════════ -->
+<!-- ═══ MODAL AJOUTER/MODIFIER UTILISATEUR ═══ -->
 <div class="modal-overlay" id="modal-user" style="display:none" onclick="closeModalIf(event,'modal-user')">
-  <div class="modal">
+  <div class="modal" style="max-width:420px">
     <div class="modal-header">
       <div class="modal-title">👤 <span id="user-modal-title">AJOUTER UN UTILISATEUR</span></div>
       <button class="modal-close" onclick="closeModal('modal-user')">✕</button>
@@ -2436,25 +2772,32 @@
     <div class="modal-body">
       <div class="form-group">
         <label class="form-label">Nom d'utilisateur</label>
-        <input class="form-input" type="text" id="user-username" placeholder="Nom d'utilisateur">
+        <input class="form-input" type="text" id="user-username" placeholder="Ex: dupont, tech01...">
       </div>
       <div class="form-group">
         <label class="form-label">Mot de passe</label>
-        <input class="form-input" type="password" id="user-password" placeholder="Mot de passe">
+        <div style="position:relative">
+          <input class="form-input" type="password" id="user-password" placeholder="Mot de passe" style="padding-right:44px">
+          <button type="button" onclick="this.previousElementSibling.type=this.previousElementSibling.type==='password'?'text':'password';this.textContent=this.previousElementSibling.type==='password'?'👁':'🙈'"
+            style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px">👁</button>
+        </div>
       </div>
       <div class="form-group">
         <label class="form-label">Rôle</label>
         <select class="form-input" id="user-role">
-          <option value="technicien">Technicien</option>
-          <option value="responsable">Responsable</option>
-          <option value="administrateur">Administrateur</option>
+          <option value="technicien">🔧 Technicien</option>
+          <option value="responsable">👔 Responsable</option>
+          <option value="administrateur">🛡 Administrateur</option>
         </select>
       </div>
       <input type="hidden" id="user-id" value="">
-      <button class="btn btn-primary" style="width:100%" onclick="saveUser()">💾 ENREGISTRER</button>
+      <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="saveUser()">💾 ENREGISTRER</button>
     </div>
   </div>
 </div>
+
+<!-- hidden input for compat -->
+<input type="hidden" id="new-pw" value="">
 
 <!-- TOASTS -->
 <div class="toast-wrap" id="toast-wrap"></div>
@@ -2513,24 +2856,47 @@ function renderUsers() {
   const listEl = document.getElementById('users-list');
   if(!listEl) return;
 
-  const roleLabels = {
-    'administrateur': 'Administrateur',
-    'responsable': 'Responsable',
-    'technicien': 'Technicien'
+  const roleConfig = {
+    'administrateur': { label: 'Administrateur', icon: '🛡', color: 'var(--amber)', bg: 'rgba(21,128,61,0.12)' },
+    'responsable':    { label: 'Responsable',    icon: '👔', color: '#60a5fa', bg: 'rgba(59,130,246,0.12)' },
+    'technicien':     { label: 'Technicien',     icon: '🔧', color: 'var(--text-dim)', bg: 'rgba(100,116,139,0.12)' }
   };
 
-  listEl.innerHTML = users.map(u => `
-    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg2);padding:10px 12px;border:1px solid var(--border);border-radius:6px">
-      <div>
-        <div style="font-weight:500;color:var(--text)">${esc(u.username)}</div>
-        <div style="font-size:11px;color:var(--text-dim)">${roleLabels[u.role] || u.role}</div>
+  listEl.innerHTML = users.map(u => {
+    const rc = roleConfig[u.role] || roleConfig.technicien;
+    const isAdmin = u.username === 'admin';
+    return `
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;transition:box-shadow .2s" 
+         onmouseover="this.style.boxShadow='0 2px 12px rgba(0,0,0,0.12)'" onmouseout="this.style.boxShadow=''">
+      <!-- Avatar -->
+      <div style="width:38px;height:38px;border-radius:50%;background:${rc.bg};border:1.5px solid ${rc.color};display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">
+        ${rc.icon}
       </div>
-      <div style="display:flex;gap:6px">
-        <button class="btn btn-outline btn-sm" onclick="editUser('${u.id}')">✏</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteUser('${u.id}')" ${u.username === 'admin' ? 'disabled style="opacity:0.5"' : ''}>✕</button>
+      <!-- Infos -->
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:600;font-size:14px;color:var(--text);margin-bottom:2px">${esc(u.username)}</div>
+        <span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:2px 8px;border-radius:20px;background:${rc.bg};color:${rc.color};font-weight:500">
+          ${rc.label}
+        </span>
       </div>
-    </div>
-  `).join('');
+      <!-- Actions -->
+      <div style="display:flex;gap:6px;flex-shrink:0">
+        <button onclick="editUser('${u.id}')" title="Modifier"
+          style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s"
+          onmouseover="this.style.borderColor='var(--amber)';this.style.color='var(--amber)'"
+          onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-dim)'">
+          ✏
+        </button>
+        <button onclick="deleteUser('${u.id}')" title="${isAdmin?'Admin protégé':'Supprimer'}"
+          ${isAdmin ? 'disabled' : ''}
+          style="width:32px;height:32px;border-radius:8px;border:1px solid ${isAdmin?'var(--border)':'rgba(239,68,68,0.3)'};background:${isAdmin?'var(--bg3)':'rgba(239,68,68,0.08)'};color:${isAdmin?'var(--text-muted)':'var(--red)'};cursor:${isAdmin?'not-allowed':'pointer'};display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s;opacity:${isAdmin?0.4:1}"
+          onmouseover="if(!this.disabled){this.style.background='rgba(239,68,68,0.18)';this.style.borderColor='var(--red)'}"
+          onmouseout="this.style.background='rgba(239,68,68,0.08)';this.style.borderColor='rgba(239,68,68,0.3)'">
+          🗑
+        </button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 function showAddUserModal() {
@@ -2604,6 +2970,37 @@ function deleteUser(userId) {
 }
 
 // ── THEME COLOR ───────────────────────────────────────────────────────────
+const THEME_MODE_KEY = 'sod4g_theme_mode';
+
+function setAppTheme(mode) {
+  localStorage.setItem(THEME_MODE_KEY, mode);
+  applyAppTheme(mode);
+}
+
+function applyAppTheme(mode) {
+  if(mode === 'light') {
+    document.body.classList.add('theme-light');
+  } else {
+    document.body.classList.remove('theme-light');
+  }
+  // Mettre à jour les boutons dans les paramètres
+  const btnDark  = document.getElementById('btn-theme-dark');
+  const btnLight = document.getElementById('btn-theme-light');
+  if(btnDark && btnLight) {
+    const activeStyle  = `border-color:var(--amber);box-shadow:0 0 0 3px var(--amber-glow)`;
+    const normalStyle  = `border-color:var(--border)`;
+    btnDark.style.cssText  += ';' + (mode === 'dark'  ? activeStyle : normalStyle);
+    btnLight.style.cssText += ';' + (mode === 'light' ? activeStyle : normalStyle);
+  }
+}
+
+function setAccentColor(color) {
+  document.getElementById('theme-color').value = color;
+  applyThemeColor(color);
+  saveThemeColor(color);
+  toast('✓ Couleur appliquée', 'success');
+}
+
 function getThemeColor() {
   try { return localStorage.getItem(THEME_COLOR_KEY) || defaults.themeColor; } catch(e) { return defaults.themeColor; }
 }
@@ -2662,6 +3059,420 @@ function adjustColor(color, amount, alpha = null) {
 document.getElementById('login-pw').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
 document.getElementById('login-username').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
 
+
+// ═══════════════════════════════════════════
+// 🔑 GESTIONNAIRE DE LICENCES
+// ═══════════════════════════════════════════
+const LICENCES_STORE_KEY = 'sod4g_licences_list';
+
+function openLicenceManager() {
+  renderLicencesList();
+  const current = localStorage.getItem(LICENCE_KEY) || '—';
+  const el = document.getElementById('my-current-licence');
+  if(el) el.textContent = current;
+  document.getElementById('modal-licences').style.display = 'flex';
+}
+
+function generateLicenceKey() {
+  const clientRaw = document.getElementById('lic-client-name').value.trim();
+  const client = clientRaw.toUpperCase().replace(/[^A-Z0-9]/g,'').substring(0,6) || 'CLIENT';
+  const type   = document.getElementById('lic-type').value;
+  const days   = parseInt(document.getElementById('lic-duration').value);
+  const rand   = () => Math.random().toString(36).substring(2,6).toUpperCase();
+  const key    = `SOD-${type}-${client}-${rand()}`;
+  const expiry = new Date();
+  expiry.setDate(expiry.getDate() + days);
+
+  document.getElementById('generated-key-val').textContent  = key;
+  document.getElementById('generated-key-info').textContent =
+    `Client: ${clientRaw||client} | Durée: ${days} jours | Expire: ${expiry.toLocaleDateString('fr-FR')}`;
+  const box = document.getElementById('generated-key-box');
+  box.style.display       = 'block';
+  box.dataset.key         = key;
+  box.dataset.client      = clientRaw || client;
+  box.dataset.days        = days;
+  box.dataset.type        = type;
+  box.dataset.expiry      = expiry.toISOString();
+}
+
+function copyGeneratedKey() {
+  const key = document.getElementById('generated-key-val').textContent;
+  navigator.clipboard.writeText(key)
+    .then(() => toast('✓ Clé copiée !', 'success'))
+    .catch(() => prompt('Copie manuellement :', key));
+}
+
+function saveKeyToList() {
+  const box = document.getElementById('generated-key-box');
+  const { key, client, days, type, expiry } = box.dataset;
+  if(!key) return;
+  const licences = getLicencesList();
+  if(licences.find(l => l.key === key)) { toast('Clé déjà sauvegardée', ''); return; }
+  licences.push({ key, client, days: parseInt(days), type, expiry, active: true, createdAt: new Date().toISOString() });
+  saveLicencesList(licences);
+  renderLicencesList();
+  toast('✓ Clé sauvegardée', 'success');
+  box.style.display = 'none';
+  document.getElementById('lic-client-name').value = '';
+}
+
+function getLicencesList() {
+  try { return JSON.parse(localStorage.getItem(LICENCES_STORE_KEY)) || []; }
+  catch(e) { return []; }
+}
+function saveLicencesList(list) { localStorage.setItem(LICENCES_STORE_KEY, JSON.stringify(list)); }
+
+function renderLicencesList() {
+  const licences = getLicencesList();
+  const el = document.getElementById('licences-list');
+  if(!el) return;
+  if(!licences.length) {
+    el.innerHTML = '<div style="text-align:center;color:var(--text-dim);font-size:12px;padding:20px">Aucune licence sauvegardée</div>';
+    return;
+  }
+  el.innerHTML = licences.map((l, i) => {
+    const expiry   = new Date(l.expiry);
+    const expired  = expiry < new Date();
+    const daysLeft = Math.ceil((expiry - new Date()) / 86400000);
+    const sColor   = !l.active ? 'var(--red)' : expired ? 'var(--red)' : daysLeft < 30 ? 'var(--amber)' : 'var(--green)';
+    const sTxt     = !l.active ? 'RÉVOQUÉE' : expired ? 'EXPIRÉE' : `${daysLeft}j restants`;
+    return `<div style="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid var(--border);flex-wrap:wrap">
+      <div style="flex:1;min-width:140px">
+        <div style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--amber)">${esc(l.key)}</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:2px">${esc(l.client)} · ${esc(l.type)} · expire ${expiry.toLocaleDateString('fr-FR')}</div>
+      </div>
+      <div style="font-size:11px;font-weight:700;color:${sColor};white-space:nowrap">${sTxt}</div>
+      <div style="display:flex;gap:6px;flex-shrink:0">
+        <button class="btn btn-outline btn-sm" style="font-size:10px;padding:4px 8px" onclick="copyKey('${esc(l.key)}')">📋</button>
+        <button class="btn btn-outline btn-sm" style="font-size:10px;padding:4px 8px;color:${l.active?'var(--red)':'var(--green)'};border-color:${l.active?'var(--red)':'var(--green)'}" onclick="toggleLicenceActive(${i})">${l.active?'🚫':'✓'}</button>
+        <button class="btn btn-outline btn-sm" style="font-size:10px;padding:4px 8px;color:var(--red);border-color:var(--red)" onclick="deleteLicence(${i})">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function copyKey(key) {
+  navigator.clipboard.writeText(key)
+    .then(() => toast('✓ Clé copiée !', 'success'))
+    .catch(() => prompt('Copie :', key));
+}
+function toggleLicenceActive(i) {
+  const l = getLicencesList();
+  l[i].active = !l[i].active;
+  saveLicencesList(l);
+  renderLicencesList();
+  toast(l[i].active ? '✓ Réactivée' : '🚫 Révoquée', '');
+}
+function deleteLicence(i) {
+  if(!confirm('Supprimer cette licence ?')) return;
+  const l = getLicencesList(); l.splice(i,1); saveLicencesList(l); renderLicencesList();
+  toast('Supprimée', '');
+}
+function exportLicences() {
+  const l = getLicencesList();
+  if(!l.length) { toast('Aucune licence', ''); return; }
+  const csv = 'Clé;Client;Type;Durée;Expire;Statut;Créée\n' +
+    l.map(x => [x.key,x.client,x.type,x.days+'j',
+      new Date(x.expiry).toLocaleDateString('fr-FR'),
+      x.active?'Active':'Révoquée',
+      new Date(x.createdAt).toLocaleDateString('fr-FR')].join(';')).join('\n');
+  const a = Object.assign(document.createElement('a'),{
+    href: URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'})),
+    download: `Licences_SOD4G_${new Date().toISOString().slice(0,10)}.csv`
+  });
+  a.click();
+  toast('✓ Export CSV téléchargé', 'success');
+}
+function updateSidebarForRole(user) {
+  const btn = document.getElementById('sidebar-licence-btn');
+  if(btn) btn.style.display = (user && user.role === 'administrateur') ? '' : 'none';
+}
+
+// ═══════════════════════════════════════════
+// 🔑 SYSTÈME DE LICENCE
+// ═══════════════════════════════════════════
+const LICENCE_KEY = 'sod4g_licence';
+const LICENCE_EXPIRY_KEY = 'sod4g_licence_expiry';
+
+// ⚠ À remplacer par ton URL Google Sheets de licences
+const LICENCE_SHEET_URL = 'https://script.google.com/macros/s/TON_SCRIPT_LICENCE/exec';
+
+function initLicence() {
+  const savedLicence = localStorage.getItem(LICENCE_KEY);
+  const expiry = localStorage.getItem(LICENCE_EXPIRY_KEY);
+  const MASTER_KEYS = ['SOD-ADMIN-2026-MASTER', 'SOD-DEV-NHAIM-2026'];
+
+  if(savedLicence) {
+    // Clé master → toujours valide
+    if(MASTER_KEYS.includes(savedLicence)) {
+      hideLicenceScreen(); return;
+    }
+    // Vérifie expiration
+    if(expiry && new Date(expiry) < new Date()) {
+      verifyLicenceOnline(savedLicence);
+    } else {
+      hideLicenceScreen();
+    }
+  } else {
+    document.getElementById('licence-screen').style.display = 'flex';
+  }
+}
+
+function activateLicence() {
+  const key = document.getElementById('licence-key').value.trim().toUpperCase();
+  const errEl = document.getElementById('licence-err');
+  errEl.style.display = 'none';
+
+  if(!key || key.length < 10) {
+    errEl.textContent = '⚠ Clé invalide — Format: SOD-XXXX-XXXX-XXXX';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  document.getElementById('licence-btn').disabled = true;
+  document.getElementById('licence-checking').style.display = 'block';
+
+  verifyLicenceOnline(key);
+}
+
+function verifyLicenceOnline(key) {
+  const errEl = document.getElementById('licence-err');
+
+  // Si pas d'URL de vérification configurée → mode dev (accepte tout)
+  if(LICENCE_SHEET_URL.includes('TON_SCRIPT_LICENCE')) {
+    // Mode développeur — clés acceptées sans serveur
+  const MASTER_KEYS = ['SOD-ADMIN-2026-MASTER', 'SOD-DEV-NHAIM-2026'];
+  if(MASTER_KEYS.includes(key) || key.startsWith('SOD-')) {
+    saveLicenceLocally(key, 3650); // 10 ans
+    hideLicenceScreen();
+    return;
+  }
+  }
+
+  fetch(`${LICENCE_SHEET_URL}?action=check&key=${encodeURIComponent(key)}`)
+    .then(r => r.json())
+    .then(data => {
+      if(data.valid) {
+        saveLicenceLocally(key, data.days || 365);
+        hideLicenceScreen();
+        toast(`✓ Licence activée — Valide ${data.days || 365} jours`, 'success');
+      } else {
+        showLicenceError(data.message || 'Clé invalide ou expirée');
+      }
+    })
+    .catch(() => {
+      // Si hors ligne → accepter si déjà sauvegardée
+      const saved = localStorage.getItem(LICENCE_KEY);
+      if(saved === key) {
+        hideLicenceScreen();
+      } else {
+        showLicenceError('Impossible de vérifier — Vérifiez votre connexion internet');
+      }
+    });
+}
+
+function saveLicenceLocally(key, days) {
+  const expiry = new Date();
+  expiry.setDate(expiry.getDate() + days);
+  localStorage.setItem(LICENCE_KEY, key);
+  localStorage.setItem(LICENCE_EXPIRY_KEY, expiry.toISOString());
+}
+
+function hideLicenceScreen() {
+  document.getElementById('licence-screen').style.display = 'none';
+  document.getElementById('licence-btn').disabled = false;
+  document.getElementById('licence-checking').style.display = 'none';
+}
+
+function showLicenceError(msg) {
+  const errEl = document.getElementById('licence-err');
+  errEl.textContent = '⚠ ' + msg;
+  errEl.style.display = 'block';
+  document.getElementById('licence-btn').disabled = false;
+  document.getElementById('licence-checking').style.display = 'none';
+}
+
+function revokeLicence() {
+  if(!confirm('Réinitialiser la licence ? L\'application sera bloquée.')) return;
+  localStorage.removeItem(LICENCE_KEY);
+  localStorage.removeItem(LICENCE_EXPIRY_KEY);
+  location.reload();
+}
+
+// ═══════════════════════════════════════════════
+// ☁ GOOGLE SHEETS — SAUVEGARDE CLOUD
+// ═══════════════════════════════════════════════
+const GS_CONFIG_KEY = 'sod4g_gs_config';
+
+function getGoogleSheetsConfig() {
+  try { return JSON.parse(localStorage.getItem(GS_CONFIG_KEY)) || {}; }
+  catch(e) { return {}; }
+}
+
+function saveGoogleSheetsConfig() {
+  const config = {
+    scriptUrl: document.getElementById('gs-script-url').value.trim()
+  };
+  localStorage.setItem(GS_CONFIG_KEY, JSON.stringify(config));
+  toast('✓ Configuration Google Sheets enregistrée', 'success');
+}
+
+function loadGoogleSheetsConfigUI() {
+  const config = getGoogleSheetsConfig();
+  const el = document.getElementById('gs-script-url');
+  if(el) el.value = config.scriptUrl || '';
+}
+
+function testGoogleSheetsConnection() {
+  const config = getGoogleSheetsConfig();
+  if(!config.scriptUrl) { toast('⚠ URL non configurée', 'error'); return; }
+  toast('🧪 Test en cours...', '');
+  fetch(`${config.scriptUrl}?action=ping`)
+    .then(r => r.json())
+    .then(d => toast(d.ok ? '✓ Connexion Google Sheets OK !' : '✗ Erreur: '+d.message, d.ok ? 'success' : 'error'))
+    .catch(() => toast('✗ Impossible de joindre Google Sheets', 'error'));
+}
+
+function syncToGoogleSheets() {
+  const config = getGoogleSheetsConfig();
+  if(!config.scriptUrl) { toast('⚠ Configurez d\'abord Google Sheets dans les paramètres', 'error'); return; }
+  if(!rows.length) { toast('⚠ Aucune donnée à envoyer', 'error'); return; }
+
+  toast('⬆ Envoi vers Google Sheets...', '');
+  fetch(config.scriptUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'save', data: rows, key: localStorage.getItem(LICENCE_KEY) })
+  })
+  .then(r => r.json())
+  .then(d => toast(d.ok ? `✓ ${rows.length} lignes sauvegardées sur Google Sheets` : '✗ Erreur: '+d.message, d.ok ? 'success' : 'error'))
+  .catch(() => toast('✗ Erreur de connexion', 'error'));
+}
+
+function syncFromGoogleSheets() {
+  const config = getGoogleSheetsConfig();
+  if(!config.scriptUrl) { toast('⚠ Configurez d\'abord Google Sheets dans les paramètres', 'error'); return; }
+
+  toast('⬇ Récupération depuis Google Sheets...', '');
+  fetch(`${config.scriptUrl}?action=load&key=${encodeURIComponent(localStorage.getItem(LICENCE_KEY)||'')}`)
+  .then(r => r.json())
+  .then(d => {
+    if(d.ok && d.data) {
+      rows = d.data;
+      saveData();
+      renderTable();
+      updateStats();
+      toast(`✓ ${rows.length} lignes récupérées depuis Google Sheets`, 'success');
+    } else {
+      toast('✗ ' + (d.message || 'Aucune donnée trouvée'), 'error');
+    }
+  })
+  .catch(() => toast('✗ Erreur de connexion', 'error'));
+}
+
+function copyAppsScript() {
+  const script = `// ═══════════════════════════════════════════
+// SCRIPT APPS SCRIPT — SOD 4G FUSION
+// Colle ce code dans Extensions → Apps Script
+// Déploie comme Application Web (accès: Tout le monde)
+// ═══════════════════════════════════════════
+
+const SHEET_NAME = 'Données';
+const LICENCES_SHEET = 'Licences';
+
+function doGet(e) {
+  const action = e.parameter.action;
+  const key = e.parameter.key || '';
+
+  if(action === 'ping') {
+    return jsonResponse({ ok: true, message: 'SOD 4G Fusion connecté' });
+  }
+
+  if(action === 'load') {
+    return loadData(key);
+  }
+
+  if(action === 'check') {
+    return checkLicence(e.parameter.key);
+  }
+
+  return jsonResponse({ ok: false, message: 'Action inconnue' });
+}
+
+function doPost(e) {
+  try {
+    const body = JSON.parse(e.postData.contents);
+    if(body.action === 'save') return saveData(body.data, body.key);
+    return jsonResponse({ ok: false, message: 'Action inconnue' });
+  } catch(err) {
+    return jsonResponse({ ok: false, message: err.message });
+  }
+}
+
+function checkLicence(key) {
+  if(!key) return jsonResponse({ valid: false, message: 'Clé manquante' });
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName(LICENCES_SHEET);
+    if(!sheet) return jsonResponse({ valid: false, message: 'Feuille Licences introuvable' });
+    const data = sheet.getDataRange().getValues();
+    for(let i = 1; i < data.length; i++) {
+      const [licKey, active, days, expiry] = data[i];
+      if(licKey === key && active === 'OUI') {
+        return jsonResponse({ valid: true, days: days || 365 });
+      }
+    }
+    return jsonResponse({ valid: false, message: 'Licence invalide ou inactive' });
+  } catch(err) {
+    return jsonResponse({ valid: false, message: err.message });
+  }
+}
+
+function loadData(key) {
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName(SHEET_NAME) || ss.getActiveSheet();
+    const data = sheet.getDataRange().getValues();
+    if(data.length < 2) return jsonResponse({ ok: true, data: [] });
+    const headers = data[0];
+    const rows = data.slice(1).map(row => {
+      const obj = {};
+      headers.forEach((h, i) => obj[h] = row[i]);
+      return obj;
+    });
+    return jsonResponse({ ok: true, data: rows });
+  } catch(err) {
+    return jsonResponse({ ok: false, message: err.message });
+  }
+}
+
+function saveData(rows, key) {
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName(SHEET_NAME);
+    if(!sheet) sheet = ss.insertSheet(SHEET_NAME);
+    sheet.clearContents();
+    if(!rows || !rows.length) return jsonResponse({ ok: true });
+    const headers = Object.keys(rows[0]);
+    const values = [headers, ...rows.map(r => headers.map(h => r[h] ?? ''))];
+    sheet.getRange(1, 1, values.length, headers.length).setValues(values);
+    return jsonResponse({ ok: true });
+  } catch(err) {
+    return jsonResponse({ ok: false, message: err.message });
+  }
+}
+
+function jsonResponse(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}`;
+
+  navigator.clipboard.writeText(script)
+    .then(() => toast('✓ Script copié ! Colle-le dans Apps Script', 'success'))
+    .catch(() => toast('Copie manuelle : ouvre les paramètres', 'error'));
+}
+
 function doLogin() {
   const username = document.getElementById('login-username').value.trim();
   const pw = document.getElementById('login-pw').value;
@@ -2673,6 +3484,7 @@ function doLogin() {
     currentUser = user;
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app').style.display = 'flex';
+    updateSidebarForRole(user);
     loadData();
     toast(`Bienvenue, ${user.username} (${user.role})`, 'success');
   } else {
@@ -3118,10 +3930,9 @@ function getFiltered() {
   const techFilter = document.getElementById('technician-filter').value;
   
   return rows.filter((r, i) => {
-    if(activeFilter === 'voip'    && !r.voip) return false;
-    if(activeFilter === 'nok'     && (r.voip || !r.voipComment)) return false; // non programmé explicitement
-    if(activeFilter === 'pending' && (r.voip || r.voipComment)) return false;  // jamais touché
-    if(activeFilter === 'finished' && !r.rapportFini) return false;
+    if(activeFilter === 'voip' && !r.voip) return false;
+    if(activeFilter === 'nok'  && r.voipComment !== 'NON PROGRAMMÉ') return false;
+    if(activeFilter === 'plan' && (r.voip || r.voipComment === 'NON PROGRAMMÉ')) return false;
     if(techFilter && r.technicien !== techFilter) return false;
     if(!q) return true;
     return Object.values(r).join(' ').toLowerCase().includes(q);
@@ -3151,25 +3962,13 @@ function toggleRow(origIdx) {
 
 function updateSelectionUI() {
   const n = selectedIdxs.size;
-  const btn        = document.getElementById('delete-sel-btn');
-  const cntEl      = document.getElementById('sel-count');
-  const bulkSmsBtn = document.getElementById('bulk-sms-btn');
-  const bulkSmsCount = document.getElementById('bulk-sms-count');
-  const bulkOkBtn  = document.getElementById('bulk-ok-btn');
-  const bulkNokBtn = document.getElementById('bulk-nok-btn');
-  const bulkOkCount  = document.getElementById('bulk-ok-count');
-  const bulkNokCount = document.getElementById('bulk-nok-count');
+  const bar = document.getElementById('selection-bar');
+  const cntEl = document.getElementById('sel-count');
+  const smsCount = document.getElementById('bulk-sms-count');
 
-  cntEl.textContent = n;
-  if(bulkSmsCount) bulkSmsCount.textContent = n;
-  if(bulkOkCount)  bulkOkCount.textContent  = n;
-  if(bulkNokCount) bulkNokCount.textContent  = n;
-
-  const show = n > 0 ? '' : 'none';
-  btn.style.display = show;
-  if(bulkSmsBtn) bulkSmsBtn.style.display = show;
-  if(bulkOkBtn)  bulkOkBtn.style.display  = show;
-  if(bulkNokBtn) bulkNokBtn.style.display = show;
+  if(cntEl) cntEl.textContent = n;
+  if(smsCount) smsCount.textContent = n;
+  if(bar) bar.style.display = n > 0 ? 'flex' : 'none';
 }
 
 function syncCheckAll() {
@@ -3197,23 +3996,20 @@ function deleteSelected() {
 // ═══════════════ RENDER TABLE ═══════════════
 function renderTable() {
   const filtered = getFiltered();
-  const empty = document.getElementById('empty-state');
-  const tbl = document.getElementById('main-table');
-  const tbody = document.getElementById('table-body');
-  const clearBtn = document.getElementById('clear-btn');
+  const empty  = document.getElementById('empty-state');
+  const tbl    = document.getElementById('main-table');
+  const tbody  = document.getElementById('table-body');
 
   if(rows.length === 0) {
     empty.style.display = 'block';
-    tbl.style.display = 'none';
-    clearBtn.style.display = 'none';
+    tbl.style.display   = 'none';
     selectedIdxs.clear();
     updateSelectionUI();
     return;
   }
 
   empty.style.display = 'none';
-  tbl.style.display = 'table';
-  clearBtn.style.display = '';
+  tbl.style.display   = 'table';
 
   tbody.innerHTML = filtered.map((r, fi) => {
     const checked = selectedIdxs.has(r._origIdx);
@@ -3237,14 +4033,18 @@ function renderTable() {
       <td class="hide-mobile" style="color:var(--text-muted);font-family:var(--mono);font-size:11px">${esc(r.serveur||'—')}${r.port?':'+esc(r.port):''}</td>
       <td class="hide-mobile" style="color:var(--text);font-size:12px">${esc(r.technicien||'—')}</td>
       <td style="white-space:nowrap">
-        <span style="font-size:11px;padding:4px 8px;border-radius:4px;font-weight:600;background:${r.rapportFini?'rgba(21,128,61,0.18)':r.voip?'rgba(59,130,246,0.15)':'rgba(100,116,139,0.15)'};color:${r.rapportFini?'var(--green)':r.voip?'#60a5fa':'var(--text-dim)'}">
-          ${r.rapportFini ? '✓ TERMINÉ' : r.voip ? '⚙ VoIP OK' : 'EN COURS'}
+        <span style="font-size:11px;padding:4px 8px;border-radius:4px;font-weight:600;
+          background:${r.voip?'rgba(21,128,61,0.18)':r.voipComment==='NON PROGRAMMÉ'?'rgba(220,38,38,0.13)':'rgba(100,116,139,0.15)'};
+          color:${r.voip?'var(--green)':r.voipComment==='NON PROGRAMMÉ'?'var(--red)':'var(--text-dim)'}">
+          ${r.voip ? '✓ PROGRAMMÉ' : r.voipComment==='NON PROGRAMMÉ' ? '✗ NON PROG.' : '📅 PLANIFIÉ'}
         </span>
       </td>
       <td>
         <div class="voip-indicator">
-          <span class="voip-at ${r.voip?'blink-amber':''}">@</span>
-          <span class="voip-label ${r.voip?'programmed':''}" style="font-size:8px">${r.voip?'OK':'—'}</span>
+          <span class="voip-at ${r.voip?'blink-amber':r.voipComment==='NON PROGRAMMÉ'?'nok':''}">@</span>
+          <span class="voip-label ${r.voip?'programmed':r.voipComment==='NON PROGRAMMÉ'?'nok':''}" style="font-size:8px">
+            ${r.voip ? 'OK' : r.voipComment==='NON PROGRAMMÉ' ? 'NOK' : '—'}
+          </span>
         </div>
       </td>
     </tr>`;
@@ -3257,24 +4057,20 @@ function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').re
 
 // ═══════════════ STATS ═══════════════
 function updateStats() {
-  const total    = rows.length;
-  const voipOk   = rows.filter(r => r.voip).length;
-  const voipNok  = rows.filter(r => !r.voip && r.rapportFini === false && r.voipComment).length; // marqué non programmé explicitement
-  const pending  = rows.filter(r => !r.voip && !r.rapportFini && !r.voipComment).length; // jamais touché
-  const done     = rows.filter(r => r.rapportFini).length;
+  const total   = rows.length;
+  const voipOk  = rows.filter(r => r.voip).length;
+  const voipNok = rows.filter(r => r.voipComment === 'NON PROGRAMMÉ').length;
+  const planifie = total - voipOk - voipNok;
 
-  document.getElementById('cnt-total').textContent   = total;
-  document.getElementById('cnt-voip').textContent    = voipOk;
+  document.getElementById('cnt-total').textContent = total;
+  document.getElementById('cnt-voip').textContent  = voipOk;
   const nokEl = document.getElementById('cnt-nok');
   if(nokEl) nokEl.textContent = voipNok;
-  document.getElementById('cnt-pending').textContent = total - voipOk - voipNok;
-  const doneEl = document.getElementById('cnt-done');
-  if(doneEl) doneEl.textContent = done;
 
   // Populate technician filter
-  const techFilter   = document.getElementById('technician-filter');
-  const technicians  = [...new Set(rows.filter(r => r.technicien).map(r => r.technicien))].sort();
-  const currentTech  = techFilter.value;
+  const techFilter  = document.getElementById('technician-filter');
+  const technicians = [...new Set(rows.filter(r => r.technicien).map(r => r.technicien))].sort();
+  const currentTech = techFilter.value;
   techFilter.innerHTML = '<option value="">Tous techniciens</option>' +
     technicians.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('');
   techFilter.value = technicians.includes(currentTech) ? currentTech : '';
@@ -3304,12 +4100,7 @@ function openSmsModal(idx) {
   `).join('');
 
   // VoIP state
-  updateVoipUI(r.voip);
-
-  // Load VoIP closure fields if data exists
-  document.getElementById('voip-comment').value = r.voipComment || '';
-  document.getElementById('voip-sim-number').value = r.voipSimNumber || '';
-  document.getElementById('voip-iccid').value = r.voipIccid || '';
+  updateVoipUI();
   document.getElementById('voip-closure-fields').style.display = 'none';
 
   // Reset SMS type selector
@@ -3438,51 +4229,55 @@ function openSMSApp() {
 
 function setVoipStatus(status) {
   if(currentRow === null) return;
-  const closureFields = document.getElementById('voip-closure-fields');
-  // Pré-remplir avec données existantes
-  document.getElementById('voip-comment').value   = rows[currentRow].voipComment   || '';
-  document.getElementById('voip-sim-number').value = rows[currentRow].voipSimNumber || '';
-  document.getElementById('voip-iccid').value     = rows[currentRow].voipIccid     || '';
-  // Adapter le titre selon le statut choisi
-  const titre = document.getElementById('voip-closure-titre');
-  if(titre) {
-    titre.textContent = status === 'ok'
-      ? '📋 FICHE DE CLÔTURE — PROGRAMMÉ'
-      : '📋 FICHE DE CLÔTURE — NON PROGRAMMÉ';
-    titre.style.color = status === 'ok' ? 'var(--green)' : 'var(--red)';
+
+  if(status === 'ok') {
+    // PROGRAMMÉ → direct, pas de formulaire
+    rows[currentRow].voip        = true;
+    rows[currentRow].rapportFini = true;
+    rows[currentRow].voipComment = 'PROGRAMMÉ';
+    saveData(); updateStats(); renderTable(); updateVoipUI();
+    document.getElementById('voip-closure-fields').style.display = 'none';
+    toast('✓ VoIP programmé', 'success');
+    setTimeout(() => closeModal('modal-sms'), 600);
+
+  } else if(status === 'plan') {
+    // PLANIFIÉ → direct, pas de formulaire
+    rows[currentRow].voip        = false;
+    rows[currentRow].rapportFini = false;
+    rows[currentRow].voipComment = '';
+    saveData(); updateStats(); renderTable(); updateVoipUI();
+    document.getElementById('voip-closure-fields').style.display = 'none';
+    toast('📅 Marqué planifié', '');
+    setTimeout(() => closeModal('modal-sms'), 600);
+
+  } else {
+    // NON PROGRAMMÉ → formulaire optionnel
+    document.getElementById('voip-sim-number').value = rows[currentRow].voipSimNumber || '';
+    document.getElementById('voip-iccid').value      = rows[currentRow].voipIccid     || '';
+    const cf = document.getElementById('voip-closure-fields');
+    cf.style.display = 'block';
+    cf.scrollIntoView({ behavior:'smooth', block:'nearest' });
   }
-  closureFields.dataset.pendingStatus = status;
-  closureFields.style.display = 'block';
-  document.getElementById('voip-comment').focus();
 }
 
-// Alias pour compatibilité
+// Alias compatibilité
 function toggleVoip() { setVoipStatus('ok'); }
 
 function confirmVoipProgramming() {
   if(currentRow === null) return;
-  const closureFields  = document.getElementById('voip-closure-fields');
-  const pendingStatus  = closureFields.dataset.pendingStatus || 'ok';
-  const isProgrammed   = (pendingStatus === 'ok');
-
-  rows[currentRow].voipComment   = document.getElementById('voip-comment').value.trim();
   rows[currentRow].voipSimNumber = document.getElementById('voip-sim-number').value.trim();
   rows[currentRow].voipIccid     = document.getElementById('voip-iccid').value.trim();
-  rows[currentRow].voip          = isProgrammed;
-  rows[currentRow].rapportFini   = isProgrammed; // TERMINÉ si programmé
-
-  saveData();
-  updateStats();
-  renderTable();
-  updateVoipUI(isProgrammed);
-  closureFields.style.display = 'none';
-
-  toast(isProgrammed ? '✓ VoIP programmé — Rapport clôturé' : '✗ Marqué non programmé', isProgrammed ? 'success' : '');
+  rows[currentRow].voipComment   = 'NON PROGRAMMÉ';
+  rows[currentRow].voip          = false;
+  rows[currentRow].rapportFini   = false;
+  saveData(); updateStats(); renderTable(); updateVoipUI();
+  document.getElementById('voip-closure-fields').style.display = 'none';
+  toast('✗ Marqué non programmé', '');
+  setTimeout(() => closeModal('modal-sms'), 600);
 }
 
 function cancelVoipProgramming() {
   document.getElementById('voip-closure-fields').style.display = 'none';
-  toast('Annulé', '');
 }
 
 // ═══════════════ BULK SMS ═══════════════
@@ -3704,38 +4499,59 @@ function loadSmsGatewayConfig() {
   if(dpEl) dpEl.value = config.defaultPhone || '';
 }
 
-function updateVoipUI(programmed) {
-  const r = currentRow !== null ? rows[currentRow] : null;
-  const terminated = r && r.rapportFini;
+function updateVoipUI() {
+  if(currentRow === null) return;
+  const r    = rows[currentRow];
+  const isOk = r.voip === true;
+  const isNok= !r.voip && r.voipComment === 'NON PROGRAMMÉ';
+  // PLANIFIÉ = pas voip, pas nok (voipComment vide ou autre)
+  const isPlan = !r.voip && !isNok;
 
-  document.getElementById('modal-at').className = 'voip-at' + (programmed ? ' blink-amber' : '');
-  document.getElementById('modal-voip-label').className = 'voip-label' + (programmed ? ' programmed' : '');
+  const atEl    = document.getElementById('modal-at');
+  const labelEl = document.getElementById('modal-voip-label');
+  const btnOk   = document.getElementById('btn-voip-ok');
+  const btnNok  = document.getElementById('btn-voip-nok');
+  const btnPlan = document.getElementById('btn-voip-plan');
 
-  if (terminated) {
-    document.getElementById('modal-voip-label').textContent = '✓ TERMINÉ';
-  } else if (programmed) {
-    document.getElementById('modal-voip-label').textContent = 'VoIP PROGRAMMÉ';
+  // @ couleur
+  atEl.className = isOk ? 'voip-at blink-amber' : isNok ? 'voip-at nok' : 'voip-at';
+
+  // Label
+  if(isOk) {
+    labelEl.className = 'voip-label programmed';
+    labelEl.style.color = 'var(--green)';
+    labelEl.textContent = '✓ PROGRAMMÉ';
+  } else if(isNok) {
+    labelEl.className = 'voip-label nok';
+    labelEl.style.color = '';
+    labelEl.textContent = '✗ NON PROGRAMMÉ';
   } else {
-    document.getElementById('modal-voip-label').textContent = 'NON PROGRAMMÉ';
+    labelEl.className = 'voip-label';
+    labelEl.style.color = 'var(--text-dim)';
+    labelEl.textContent = '📅 PLANIFIÉ';
   }
 
-  // Highlight bouton actif
-  const btnOk  = document.getElementById('btn-voip-ok');
-  const btnNok = document.getElementById('btn-voip-nok');
-  if(btnOk && btnNok) {
-    if(programmed) {
-      btnOk.className  = 'btn btn-primary btn-sm';
-      btnNok.className = 'btn btn-outline btn-sm';
-    } else {
-      btnOk.className  = 'btn btn-outline btn-sm';
-      btnNok.className = 'btn btn-danger btn-sm';
-    }
+  // Boutons surlignés
+  if(btnOk)   btnOk.className   = isOk   ? 'btn btn-sm' : 'btn btn-outline btn-sm';
+  if(btnOk)   btnOk.style.background  = isOk ? 'var(--green)' : '';
+  if(btnOk)   btnOk.style.color       = isOk ? '#fff' : '';
+  if(btnOk)   btnOk.style.borderColor = isOk ? 'var(--green)' : '';
+  if(btnNok)  btnNok.className  = isNok  ? 'btn btn-danger btn-sm' : 'btn btn-outline btn-sm';
+  if(btnPlan) btnPlan.className = isPlan ? 'btn btn-sm' : 'btn btn-outline btn-sm';
+  if(btnPlan) {
+    btnPlan.style.background  = isPlan ? 'var(--text-dim)' : '';
+    btnPlan.style.color       = isPlan ? '#fff' : 'var(--text-dim)';
+    btnPlan.style.borderColor = 'var(--text-dim)';
   }
 }
 
 // ═══════════════ SETTINGS ═══════════════
 function openSettings() {
   loadSmsGatewayConfig();
+  loadGoogleSheetsConfigUI();
+  // Appliquer l'état des boutons thème
+  const mode = localStorage.getItem(THEME_MODE_KEY) || 'dark';
+  setTimeout(() => applyAppTheme(mode), 50);
   const saved = getSMSTemplates();
   document.getElementById('sms-template-voip').value = saved.voip || defaults.smsTemplates.voip;
   document.getElementById('sms-template-voip-alt').value = saved['voip-alt'] || defaults.smsTemplates['voip-alt'];
@@ -3842,42 +4658,39 @@ document.addEventListener('DOMContentLoaded', () => {
       applyThemeColor(e.target.value);
     });
   }
+
+  // Vérifier la licence au démarrage
+  initLicence();
+
+  // Appliquer le thème sauvegardé
+  const savedMode = localStorage.getItem(THEME_MODE_KEY) || 'dark';
+  applyAppTheme(savedMode);
 });
 
 // ═══════════════ BULK STATUS ═══════════════
 function bulkSetStatus(status) {
   if(selectedIdxs.size === 0) return;
-  const isProgrammed = (status === 'ok');
-  const label = isProgrammed ? 'PROGRAMMÉ' : 'NON PROGRAMMÉ';
   const n = selectedIdxs.size;
 
-  // Demander commentaire commun
-  const comment = prompt(`Commentaire pour les ${n} appareils sélectionnés (optionnel) :`,'') ;
-  if(comment === null) return; // annulé
+  let label, voip, rapportFini, comment;
 
-  let simNumber = '';
-  let iccid = '';
-  if(isProgrammed) {
-    simNumber = prompt('N° SIM (optionnel, laisser vide si différent par appareil) :','') || '';
-    if(simNumber === null) return;
-    iccid = prompt('N° ICCID (optionnel) :','') || '';
-    if(iccid === null) return;
+  if(status === 'ok') {
+    label = 'PROGRAMMÉ'; voip = true; rapportFini = true; comment = 'PROGRAMMÉ';
+  } else if(status === 'nok') {
+    label = 'NON PROGRAMMÉ'; voip = false; rapportFini = false; comment = 'NON PROGRAMMÉ';
+  } else {
+    label = 'PLANIFIÉ'; voip = false; rapportFini = false; comment = '';
   }
 
   [...selectedIdxs].forEach(idx => {
-    rows[idx].voip        = isProgrammed;
-    rows[idx].rapportFini = isProgrammed;
-    if(comment)   rows[idx].voipComment   = comment;
-    if(simNumber) rows[idx].voipSimNumber = simNumber;
-    if(iccid)     rows[idx].voipIccid     = iccid;
+    rows[idx].voip        = voip;
+    rows[idx].rapportFini = rapportFini;
+    rows[idx].voipComment = comment;
   });
 
   selectedIdxs.clear();
-  saveData();
-  renderTable();
-  updateStats();
-  updateSelectionUI();
-  toast(`✓ ${n} appareil(s) marqués ${label}`, isProgrammed ? 'success' : '');
+  saveData(); renderTable(); updateStats(); updateSelectionUI();
+  toast(`✓ ${n} appareil(s) → ${label}`, status === 'ok' ? 'success' : '');
 }
 
 // ═══════════════ EXPORT EXCEL ═══════════════
@@ -3902,7 +4715,7 @@ function exportExcel() {
     r.port           || '',
     r.technicien     || '',
     r.voip           ? 'OUI' : 'NON',
-    r.rapportFini    ? 'TERMINÉ' : 'EN COURS',
+    r.voip           ? 'PROGRAMMÉ' : r.voipComment === 'NON PROGRAMMÉ' ? 'NON PROGRAMMÉ' : 'PLANIFIÉ',
     r.voipComment    || '',
     r.voipSimNumber  || '',
     r.voipIccid      || ''
