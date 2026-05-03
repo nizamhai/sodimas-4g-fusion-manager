@@ -2693,90 +2693,51 @@
       <div class="settings-section">
         <div class="settings-title">📱 ENVOI SMS VIA SMARTPHONE</div>
 
-        <!-- Explication simple -->
-        <div style="background:rgba(21,128,61,0.12);border:1px solid rgba(21,128,61,0.3);border-radius:10px;padding:14px;margin-bottom:16px">
-          <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:8px">💡 COMMENT ÇA MARCHE ?</div>
-          <div style="font-size:11px;color:var(--text-dim);line-height:1.7">
-            Votre PC envoie les SMS <strong style="color:var(--text)">via votre smartphone</strong> branché en <strong style="color:var(--text)">USB ou connecté au même WiFi</strong>.<br>
-            L'app Android reçoit la demande et envoie le SMS avec votre carte SIM.
+        <div style="background:rgba(21,128,61,0.10);border:1px solid rgba(21,128,61,0.3);border-radius:10px;padding:14px;margin-bottom:16px">
+          <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:8px">📲 APP RECOMMANDÉE — GRATUITE</div>
+          <div style="font-size:11px;color:var(--text-dim);line-height:1.8">
+            Installe <strong style="color:var(--text)">SMS Gateway for Android</strong> sur ton téléphone<br>
+            Play Store : <span style="color:var(--amber);font-family:var(--mono);font-size:10px">play.google.com/store/apps/details?id=capcom6.android.smsgateway</span><br>
+            Lance l'app → active le <strong style="color:var(--text)">serveur local</strong> → note l'IP + identifiants affichés
           </div>
         </div>
 
-        <!-- Étapes -->
-        <div style="margin-bottom:16px">
-          <div style="font-size:11px;font-weight:700;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">ÉTAPES À SUIVRE</div>
-
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="display:flex;gap:12px;align-items:flex-start;padding:10px;background:var(--bg3);border-radius:8px">
-              <div style="width:24px;height:24px;border-radius:50%;background:var(--amber);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">1</div>
-              <div>
-                <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px">Installez l'app sur votre Android</div>
-                <div style="font-size:11px;color:var(--text-dim)">Cherchez <strong style="color:var(--amber)">"SMS Gateway for Android"</strong> sur le Play Store et installez-la (gratuit)</div>
-              </div>
-            </div>
-
-            <div style="display:flex;gap:12px;align-items:flex-start;padding:10px;background:var(--bg3);border-radius:8px">
-              <div style="width:24px;height:24px;border-radius:50%;background:var(--amber);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">2</div>
-              <div>
-                <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px">Choisissez votre connexion</div>
-                <div style="font-size:11px;color:var(--text-dim)">
-                  <span style="color:var(--green)">📶 WiFi</span> — Téléphone et PC sur le même réseau WiFi<br>
-                  <span style="color:var(--green)">🔌 USB</span> — Branchez votre téléphone au PC et activez le "Partage de connexion USB" dans les paramètres Android
-                </div>
-              </div>
-            </div>
-
-            <div style="display:flex;gap:12px;align-items:flex-start;padding:10px;background:var(--bg3);border-radius:8px">
-              <div style="width:24px;height:24px;border-radius:50%;background:var(--amber);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">3</div>
-              <div>
-                <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px">Démarrez le serveur dans l'app</div>
-                <div style="font-size:11px;color:var(--text-dim)">Ouvrez l'app → activez le serveur → notez l'adresse affichée<br>ex: <span style="color:var(--amber);font-family:var(--mono)">http://192.168.1.100:8080</span></div>
-              </div>
-            </div>
-
-            <div style="display:flex;gap:12px;align-items:flex-start;padding:10px;background:var(--bg3);border-radius:8px">
-              <div style="width:24px;height:24px;border-radius:50%;background:var(--amber);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">4</div>
-              <div>
-                <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px">Entrez l'adresse ci-dessous</div>
-                <div style="font-size:11px;color:var(--text-dim)">Collez l'adresse IP de votre smartphone dans le champ ci-dessous, testez et enregistrez</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Seul champ nécessaire : l'IP -->
         <div class="form-group">
           <label class="form-label">🌐 Adresse IP du smartphone</label>
           <div style="display:flex;gap:8px">
             <input type="text" id="sms-gateway-url" class="form-input" placeholder="http://192.168.1.X:8080" style="flex:1">
-            <button class="btn btn-outline btn-sm" onclick="testSmsGatewayConfig()" style="white-space:nowrap;min-height:44px">🧪 TESTER</button>
+            <button class="btn btn-outline btn-sm" onclick="testSmsGatewayConfig()" style="white-space:nowrap;min-height:44px">🧪 Tester</button>
           </div>
-          <div class="form-hint" style="margin-top:6px">
-            💡 <strong>WiFi :</strong> trouvez l'IP dans l'app Android &nbsp;|&nbsp; <strong>USB :</strong> utilisez <span style="color:var(--amber);font-family:var(--mono)">http://192.168.42.129:8080</span> (IP USB Android par défaut)
+          <div class="form-hint">IP affichée dans l'app Android après activation du serveur</div>
+        </div>
+
+        <div style="display:flex;gap:12px">
+          <div class="form-group" style="flex:1">
+            <label class="form-label">👤 Nom d'utilisateur</label>
+            <input type="text" id="sms-gateway-username" class="form-input" placeholder="Affiché dans l'app">
+          </div>
+          <div class="form-group" style="flex:1">
+            <label class="form-label">🔒 Mot de passe</label>
+            <input type="password" id="sms-gateway-password" class="form-input" placeholder="Affiché dans l'app">
           </div>
         </div>
 
-        <!-- Champs cachés pour la compatibilité JS (pas affichés) -->
-        <input type="hidden" id="sms-gateway-username" value="">
-        <input type="hidden" id="sms-gateway-password" value="">
         <input type="hidden" id="sms-gateway-api-key" value="">
         <input type="hidden" id="sms-gateway-default-phone" value="">
 
-        <div style="display:flex;gap:12px;margin-top:4px">
-          <button class="btn btn-primary btn-sm" onclick="saveSmsGatewayConfig()">💾 ENREGISTRER</button>
-        </div>
+        <button class="btn btn-primary btn-sm" onclick="saveSmsGatewayConfig()" style="width:100%">💾 ENREGISTRER</button>
 
-        <!-- Dépannage -->
         <div style="margin-top:14px;padding:10px;background:rgba(100,116,139,0.1);border-radius:6px">
           <div style="font-size:10px;color:var(--text-dim);font-weight:bold;margin-bottom:6px">⚠ DÉPANNAGE</div>
           <div style="font-size:10px;color:var(--text-muted);line-height:1.7">
-            • L'IP change si vous reconnectez au WiFi → retestez si ça ne marche plus<br>
-            • USB : activez "Débogage USB" dans Options développeur Android<br>
-            • Essayez <span style="font-family:var(--mono);color:var(--amber)">8080</span>, <span style="font-family:var(--mono);color:var(--amber)">8081</span> ou <span style="font-family:var(--mono);color:var(--amber)">9090</span> si le port ne répond pas<br>
-            • Désactivez le VPN sur votre téléphone si activé
+            • Téléphone et PC sur le <strong>même réseau WiFi</strong><br>
+            • Si ça ne répond pas : essaie le port <span style="font-family:var(--mono);color:var(--amber)">8080</span> ou <span style="font-family:var(--mono);color:var(--amber)">8081</span><br>
+            • Désactive le VPN sur le téléphone si activé<br>
+            • Vérifie que l'app n'est pas tuée par l'optimisation batterie
           </div>
         </div>
       </div>
+
 
       <div class="settings-section">
         <div class="settings-title">🎨 THÈME ET APPARENCE</div>
@@ -4483,59 +4444,38 @@ function sendSmsViaApi(message, config, recipientPhone) {
     const base = config.url.replace(/\/$/, '');
     const headers = { 'Content-Type': 'application/json' };
 
-    // Basic auth si username+password configurés
+    // Basic Auth — username:password affichés dans l'app Android
     if(config.username && config.password) {
       headers['Authorization'] = 'Basic ' + btoa(config.username + ':' + config.password);
     }
-    // API key header si configuré (certaines apps l'utilisent)
-    if(config.apiKey) {
-      headers['X-Api-Key'] = config.apiKey;
-    }
 
-    // ── Détecte le format de l'app selon l'URL ou essaie plusieurs formats ──
-    // Format 1: "SMS Gateway for Android" (http://ip:8080/send)
-    // Format 2: "Android SMS Gateway" (http://ip:8080/api/send)
-    // Format 3: "HTTP SMS" (POST /messages avec {to, message})
-    // Format 4: url personnalisée directe
+    // Format EXACT de capcom6/android-sms-gateway
+    // POST /message avec { textMessage: { text }, phoneNumbers: [...] }
+    const payload = {
+      textMessage: { text: message },
+      phoneNumbers: [recipientPhone]
+    };
 
-    // On essaie le format standard d'abord, puis les alternatives
-    const attempts = [];
-
-    if(base.includes('/api') || base.includes('/send') || base.includes('/message')) {
-      // URL déjà précise — on l'utilise directement
-      attempts.push({ url: base, body: { phone: recipientPhone, message, to: recipientPhone, text: message, number: recipientPhone, recipient: recipientPhone } });
-    } else {
-      // On essaie plusieurs endpoints courants des apps Android SMS Gateway
-      attempts.push({ url: base + '/send',          body: { phone: recipientPhone, message } });
-      attempts.push({ url: base + '/api/send',      body: { phone: recipientPhone, message } });
-      attempts.push({ url: base + '/messages',      body: { to: recipientPhone, message, text: message } });
-      attempts.push({ url: base + '/sendsms',       body: { phone: recipientPhone, message, number: recipientPhone } });
-      attempts.push({ url: base + '/api/v1/send',   body: { phone: recipientPhone, message } });
-    }
-
-    function tryNext(idx) {
-      if(idx >= attempts.length) {
-        reject(new Error('Tous les endpoints ont échoué'));
-        return;
-      }
-      const { url, body } = attempts[idx];
-      fetch(url, { method: 'POST', headers, body: JSON.stringify(body) })
-        .then(resp => {
-          if(resp.ok) { resolve(true); }
-          else if(resp.status === 404 && idx + 1 < attempts.length) {
-            tryNext(idx + 1); // essaie le suivant
-          } else {
-            resp.text().then(t => { console.warn('Gateway response:', resp.status, t); resolve(true); });
-            // On resolve quand même — l'app peut répondre 200 ou autre selon version
-          }
-        })
-        .catch(() => {
-          if(idx + 1 < attempts.length) tryNext(idx + 1);
-          else reject(new Error('Connexion impossible'));
+    fetch(base + '/message', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload)
+    })
+    .then(r => {
+      if(r.ok || r.status === 201 || r.status === 202) {
+        resolve(true);
+      } else {
+        r.text().then(t => {
+          console.warn('SMS Gateway response:', r.status, t);
+          // On resolve quand même pour ne pas bloquer l'envoi en masse
+          resolve(true);
         });
-    }
-
-    tryNext(0);
+      }
+    })
+    .catch(err => {
+      console.error('SMS Gateway error:', err);
+      reject(new Error('Connexion impossible — vérifiez l\'IP et le WiFi'));
+    });
   });
 }
 
