@@ -2662,32 +2662,53 @@
       </div>
 
       <div class="settings-section">
-        <div class="settings-title">☁ GOOGLE SHEETS — SAUVEGARDE CLOUD</div>
+        <div class="settings-title">☁ GOOGLE SHEETS / APPSHEET</div>
+
         <div style="background:rgba(21,128,61,0.10);border:1px solid rgba(21,128,61,0.3);border-radius:10px;padding:14px;margin-bottom:16px">
-          <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:8px">💡 COMMENT CONFIGURER ?</div>
+          <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:8px">💡 COMMENT ÇA FONCTIONNE ?</div>
           <div style="font-size:11px;color:var(--text-dim);line-height:1.8">
-            1. Crée un Google Sheet sur <strong style="color:var(--text)">sheets.google.com</strong><br>
-            2. Va dans <strong style="color:var(--text)">Extensions → Apps Script</strong><br>
-            3. Colle le script → Déploie comme <strong style="color:var(--text)">Application Web (accès : Tout le monde)</strong><br>
-            4. Copie l'URL de déploiement ci-dessous
+            <strong style="color:var(--text)">SOD 4G FUSION</strong> écrit dans ton Google Sheet<br>
+            <strong style="color:var(--text)">AppSheet</strong> lit le même Google Sheet automatiquement<br>
+            → Les deux sont toujours synchronisés ✓
           </div>
         </div>
+
+        <!-- Étapes -->
+        <div style="margin-bottom:16px;display:flex;flex-direction:column;gap:8px">
+
+          <div style="padding:10px;background:var(--bg3);border-radius:8px;border-left:3px solid var(--amber)">
+            <div style="font-size:11px;font-weight:700;color:var(--amber);margin-bottom:4px">ÉTAPE 1 — Créer le Google Sheet</div>
+            <div style="font-size:11px;color:var(--text-dim)">Ouvre <strong style="color:var(--text)">sheets.google.com</strong> → Nouveau Sheet → nomme-le "SOD 4G FUSION"</div>
+          </div>
+
+          <div style="padding:10px;background:var(--bg3);border-radius:8px;border-left:3px solid var(--amber)">
+            <div style="font-size:11px;font-weight:700;color:var(--amber);margin-bottom:4px">ÉTAPE 2 — Coller le script Apps Script</div>
+            <div style="font-size:11px;color:var(--text-dim)">Dans le Sheet → <strong style="color:var(--text)">Extensions → Apps Script</strong> → colle le script → <strong style="color:var(--text)">Déployer → Nouvelle déploiement → Application Web → Accès : Tout le monde</strong> → copie l'URL</div>
+            <button class="btn btn-outline btn-sm" style="margin-top:8px;font-size:10px" onclick="copyAppsScript()">📋 Copier le script Apps Script</button>
+          </div>
+
+          <div style="padding:10px;background:var(--bg3);border-radius:8px;border-left:3px solid var(--amber)">
+            <div style="font-size:11px;font-weight:700;color:var(--amber);margin-bottom:4px">ÉTAPE 3 — Connecter AppSheet</div>
+            <div style="font-size:11px;color:var(--text-dim)">Dans <strong style="color:var(--text)">AppSheet</strong> → utilise le même Google Sheet comme source de données → les colonnes se créent automatiquement</div>
+          </div>
+
+        </div>
+
+        <!-- URL Script -->
         <div class="form-group">
           <label class="form-label">🔗 URL Apps Script (Web App)</label>
           <input type="text" id="gs-script-url" class="form-input" placeholder="https://script.google.com/macros/s/XXXX/exec">
-          <div class="form-hint">URL depuis "Déployer → Gérer les déploiements"</div>
+          <div class="form-hint">URL copiée après le déploiement → "Déployer → Gérer les déploiements"</div>
         </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px">
           <button class="btn btn-primary btn-sm" onclick="saveGoogleSheetsConfig()">💾 Enregistrer</button>
           <button class="btn btn-outline btn-sm" onclick="testGoogleSheetsConnection()">🧪 Tester</button>
           <button class="btn btn-outline btn-sm" onclick="syncToGoogleSheets()" style="color:var(--amber);border-color:var(--amber)">⬆ Envoyer vers Sheet</button>
           <button class="btn btn-outline btn-sm" onclick="syncFromGoogleSheets()" style="color:var(--green);border-color:var(--green)">⬇ Récupérer du Sheet</button>
         </div>
-        <div style="padding:10px;background:rgba(100,116,139,0.1);border-radius:6px">
-          <div style="font-size:10px;color:var(--amber);font-weight:700;margin-bottom:4px">📜 SCRIPT APPS SCRIPT</div>
-          <div style="font-size:10px;color:var(--text-dim);margin-bottom:8px">Copie ce script dans ton Google Sheet → Extensions → Apps Script</div>
-          <button class="btn btn-outline btn-sm" style="font-size:10px" onclick="copyAppsScript()">📋 Copier le script</button>
-        </div>
+
+        <div id="gs-status" style="display:none;margin-top:10px;padding:10px;border-radius:8px;font-size:12px"></div>
       </div>
 
       <div class="settings-section">
@@ -3296,39 +3317,36 @@ function activateLicence() {
 }
 
 function verifyLicenceOnline(key) {
-  const errEl = document.getElementById('licence-err');
-
-  // Si pas d'URL de vérification configurée → mode dev (accepte tout)
-  if(LICENCE_SHEET_URL.includes('TON_SCRIPT_LICENCE')) {
-    // Mode développeur — clés acceptées sans serveur
   const MASTER_KEYS = ['SOD-ADMIN-2026-MASTER', 'SOD-DEV-NHAIM-2026'];
+
+  // Clé master ou toute clé SOD- → acceptée directement, pas besoin de serveur
   if(MASTER_KEYS.includes(key) || key.startsWith('SOD-')) {
     saveLicenceLocally(key, 3650); // 10 ans
     hideLicenceScreen();
     return;
   }
-  }
 
-  fetch(`${LICENCE_SHEET_URL}?action=check&key=${encodeURIComponent(key)}`)
-    .then(r => r.json())
-    .then(data => {
-      if(data.valid) {
-        saveLicenceLocally(key, data.days || 365);
-        hideLicenceScreen();
-        toast(`✓ Licence activée — Valide ${data.days || 365} jours`, 'success');
-      } else {
-        showLicenceError(data.message || 'Clé invalide ou expirée');
-      }
-    })
-    .catch(() => {
-      // Si hors ligne → accepter si déjà sauvegardée
-      const saved = localStorage.getItem(LICENCE_KEY);
-      if(saved === key) {
-        hideLicenceScreen();
-      } else {
-        showLicenceError('Impossible de vérifier — Vérifiez votre connexion internet');
-      }
-    });
+  // Sinon → vérifier sur le serveur si configuré
+  if(!LICENCE_SHEET_URL.includes('TON_SCRIPT_LICENCE')) {
+    fetch(`${LICENCE_SHEET_URL}?action=check&key=${encodeURIComponent(key)}`)
+      .then(r => r.json())
+      .then(data => {
+        if(data.valid) {
+          saveLicenceLocally(key, data.days || 365);
+          hideLicenceScreen();
+          toast(`✓ Licence activée — Valide ${data.days || 365} jours`, 'success');
+        } else {
+          showLicenceError(data.message || 'Clé invalide ou expirée');
+        }
+      })
+      .catch(() => {
+        const saved = localStorage.getItem(LICENCE_KEY);
+        if(saved === key) { hideLicenceScreen(); }
+        else { showLicenceError('Connexion impossible — Vérifiez internet'); }
+      });
+  } else {
+    showLicenceError('Clé invalide. Utilisez votre clé SOD-XXXX-XXXX-XXXX');
+  }
 }
 
 function saveLicenceLocally(key, days) {
@@ -3383,38 +3401,71 @@ function loadGoogleSheetsConfigUI() {
   if(el) el.value = config.scriptUrl || '';
 }
 
+function showGsStatus(msg, ok) {
+  const el = document.getElementById('gs-status');
+  if(!el) return;
+  el.style.display = 'block';
+  el.style.background = ok ? 'rgba(21,128,61,0.12)' : 'rgba(220,38,38,0.10)';
+  el.style.border = '1px solid ' + (ok ? 'rgba(21,128,61,0.3)' : 'rgba(220,38,38,0.3)');
+  el.style.color = ok ? 'var(--green)' : 'var(--red)';
+  el.textContent = msg;
+}
+
 function testGoogleSheetsConnection() {
   const config = getGoogleSheetsConfig();
-  if(!config.scriptUrl) { toast('⚠ URL non configurée', 'error'); return; }
-  toast('🧪 Test en cours...', '');
-  fetch(`${config.scriptUrl}?action=ping`)
+  if(!config.scriptUrl) { toast('⚠ Entrez d\'abord l\'URL Apps Script', 'error'); return; }
+  toast('⏳ Test en cours...', '');
+  showGsStatus('⏳ Connexion en cours...', true);
+  fetch(config.scriptUrl + '?action=ping')
     .then(r => r.json())
-    .then(d => toast(d.ok ? '✓ Connexion Google Sheets OK !' : '✗ Erreur: '+d.message, d.ok ? 'success' : 'error'))
-    .catch(() => toast('✗ Impossible de joindre Google Sheets', 'error'));
+    .then(d => {
+      if(d.ok) {
+        showGsStatus('✅ Connexion réussie ! Google Sheets répond correctement. AppSheet est synchronisé.', true);
+        toast('✅ Google Sheets connecté !', 'success');
+      } else {
+        showGsStatus('❌ Erreur : ' + (d.message||'Réponse invalide'), false);
+        toast('✗ Erreur', 'error');
+      }
+    })
+    .catch(() => {
+      showGsStatus('❌ Connexion impossible.\n• Le script est bien déployé ?\n• Accès : "Tout le monde" ?\n• URL correcte ?', false);
+      toast('✗ Connexion impossible', 'error');
+    });
 }
 
 function syncToGoogleSheets() {
   const config = getGoogleSheetsConfig();
-  if(!config.scriptUrl) { toast('⚠ Configurez d\'abord Google Sheets dans les paramètres', 'error'); return; }
+  if(!config.scriptUrl) { toast('⚠ Configurez d\'abord Google Sheets', 'error'); return; }
   if(!rows.length) { toast('⚠ Aucune donnée à envoyer', 'error'); return; }
-
   toast('⬆ Envoi vers Google Sheets...', '');
+  showGsStatus('⏳ Envoi de ' + rows.length + ' appareils...', true);
   fetch(config.scriptUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'save', data: rows, key: localStorage.getItem(LICENCE_KEY) })
+    body: JSON.stringify({ action: 'save', data: rows })
   })
   .then(r => r.json())
-  .then(d => toast(d.ok ? `✓ ${rows.length} lignes sauvegardées sur Google Sheets` : '✗ Erreur: '+d.message, d.ok ? 'success' : 'error'))
-  .catch(() => toast('✗ Erreur de connexion', 'error'));
+  .then(d => {
+    if(d.ok) {
+      showGsStatus('✅ ' + rows.length + ' appareils envoyés vers Google Sheets. AppSheet se synchronisera automatiquement.', true);
+      toast('✅ ' + rows.length + ' appareils envoyés !', 'success');
+    } else {
+      showGsStatus('❌ Erreur : ' + (d.message||'Échec'), false);
+      toast('✗ Erreur envoi', 'error');
+    }
+  })
+  .catch(() => {
+    showGsStatus('❌ Erreur de connexion.', false);
+    toast('✗ Erreur de connexion', 'error');
+  });
 }
 
 function syncFromGoogleSheets() {
   const config = getGoogleSheetsConfig();
-  if(!config.scriptUrl) { toast('⚠ Configurez d\'abord Google Sheets dans les paramètres', 'error'); return; }
-
+  if(!config.scriptUrl) { toast('⚠ Configurez d\'abord Google Sheets', 'error'); return; }
   toast('⬇ Récupération depuis Google Sheets...', '');
-  fetch(`${config.scriptUrl}?action=load&key=${encodeURIComponent(localStorage.getItem(LICENCE_KEY)||'')}`)
+  showGsStatus('⏳ Chargement des données...', true);
+  fetch(config.scriptUrl + '?action=load')
   .then(r => r.json())
   .then(d => {
     if(d.ok && d.data) {
@@ -3422,17 +3473,98 @@ function syncFromGoogleSheets() {
       saveData();
       renderTable();
       updateStats();
-      toast(`✓ ${rows.length} lignes récupérées depuis Google Sheets`, 'success');
+      showGsStatus('✅ ' + rows.length + ' appareils récupérés depuis Google Sheets.', true);
+      toast('✅ ' + rows.length + ' appareils récupérés !', 'success');
     } else {
-      toast('✗ ' + (d.message || 'Aucune donnée trouvée'), 'error');
+      showGsStatus('❌ ' + (d.message||'Aucune donnée dans le Sheet'), false);
+      toast('✗ ' + (d.message||'Aucune donnée'), 'error');
     }
   })
-  .catch(() => toast('✗ Erreur de connexion', 'error'));
+  .catch(() => {
+    showGsStatus('❌ Erreur de connexion.', false);
+    toast('✗ Erreur de connexion', 'error');
+  });
 }
 
 function copyAppsScript() {
-  const s = '// Script Apps Script - voir documentation';
-  navigator.clipboard.writeText(s).then(()=>toast('✓ Copié','success')).catch(()=>{});
+  const lines = [
+    "// SOD 4G FUSION — Apps Script pour Google Sheets + AppSheet",
+    "// Etapes : Extensions > Apps Script > colle ce code > Deployer > Application Web > Acces Tout le monde",
+    "",
+    "const SHEET_NAME = 'Donnees';",
+    "const COLUMNS = ['numeroAppareil','adresse','cp','ville','id','mdp','ligne','serveur','port','technicien','voip','voipComment','voipSimNumber','voipIccid','rapportFini'];",
+    "",
+    "function doGet(e) {",
+    "  const action = (e.parameter && e.parameter.action) || 'load';",
+    "  if (action === 'ping') return jsonOut({ ok: true, message: 'Connecte' });",
+    "  if (action === 'load') return loadData();",
+    "  return jsonOut({ ok: false, message: 'Action inconnue' });",
+    "}",
+    "",
+    "function doPost(e) {",
+    "  try {",
+    "    const body = JSON.parse(e.postData.contents);",
+    "    if (body.action === 'save') return saveData(body.data);",
+    "    return jsonOut({ ok: false, message: 'Action inconnue' });",
+    "  } catch(err) { return jsonOut({ ok: false, message: err.message }); }",
+    "}",
+    "",
+    "function loadData() {",
+    "  try {",
+    "    const ss = SpreadsheetApp.getActiveSpreadsheet();",
+    "    const sheet = ss.getSheetByName(SHEET_NAME);",
+    "    if (!sheet) return jsonOut({ ok: true, data: [] });",
+    "    const vals = sheet.getDataRange().getValues();",
+    "    if (vals.length < 2) return jsonOut({ ok: true, data: [] });",
+    "    const headers = vals[0].map(String);",
+    "    const data = vals.slice(1).map(row => {",
+    "      const obj = {};",
+    "      headers.forEach((h, i) => { obj[h] = row[i] !== undefined ? String(row[i]) : ''; });",
+    "      return obj;",
+    "    });",
+    "    return jsonOut({ ok: true, data: data });",
+    "  } catch(err) { return jsonOut({ ok: false, message: err.message }); }",
+    "}",
+    "",
+    "function saveData(rows) {",
+    "  try {",
+    "    const ss = SpreadsheetApp.getActiveSpreadsheet();",
+    "    let sheet = ss.getSheetByName(SHEET_NAME);",
+    "    if (!sheet) sheet = ss.insertSheet(SHEET_NAME);",
+    "    sheet.clearContents();",
+    "    if (!rows || rows.length === 0) return jsonOut({ ok: true, saved: 0 });",
+    "    const headers = COLUMNS;",
+    "    const values = [headers].concat(rows.map(r => headers.map(h => r[h] !== undefined ? r[h] : '')));",
+    "    sheet.getRange(1, 1, values.length, headers.length).setValues(values);",
+    "    const hr = sheet.getRange(1, 1, 1, headers.length);",
+    "    hr.setBackground('#15803d').setFontColor('#ffffff').setFontWeight('bold');",
+    "    sheet.setFrozenRows(1);",
+    "    return jsonOut({ ok: true, saved: rows.length });",
+    "  } catch(err) { return jsonOut({ ok: false, message: err.message }); }",
+    "}",
+    "",
+    "function jsonOut(obj) {",
+    "  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);",
+    "}"
+  ];
+
+  const script = lines.join('\n');
+
+  const copy = () => {
+    const ta = document.createElement('textarea');
+    ta.value = script;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    toast('✓ Script copié ! Colle-le dans Apps Script → Extensions → Apps Script', 'success');
+  };
+
+  if(navigator.clipboard) {
+    navigator.clipboard.writeText(script).then(() => toast('✓ Script copié !', 'success')).catch(copy);
+  } else { copy(); }
 }
 
 function doLogin() {
