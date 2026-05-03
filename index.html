@@ -3439,24 +3439,47 @@ function syncToGoogleSheets() {
   if(!rows.length) { toast('⚠ Aucune donnée à envoyer', 'error'); return; }
   toast('⬆ Envoi vers Google Sheets...', '');
   showGsStatus('⏳ Envoi de ' + rows.length + ' appareils...', true);
-  fetch(config.scriptUrl, {
+  const url = config.scriptUrl;
+  fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body: JSON.stringify({ action: 'save', data: rows })
   })
-  .then(r => r.json())
-  .then(d => {
-    if(d.ok) {
-      showGsStatus('✅ ' + rows.length + ' appareils envoyés vers Google Sheets. AppSheet se synchronisera automatiquement.', true);
-      toast('✅ ' + rows.length + ' appareils envoyés !', 'success');
-    } else {
-      showGsStatus('❌ Erreur : ' + (d.message||'Échec'), false);
-      toast('✗ Erreur envoi', 'error');
+  .then(r => r.text())
+  .then(text => {
+    try {
+      const d = JSON.parse(text);
+      if(d.ok) {
+        showGsStatus('✅ ' + (d.saved||rows.length) + ' appareils envoyés ! AppSheet synchronisé.', true);
+        toast('✅ ' + (d.saved||rows.length) + ' appareils envoyés !', 'success');
+      } else { throw new Error(d.message||'Erreur'); }
+    } catch(e) { _syncViaGet(url); }
+  })
+  .catch(() => _syncViaGet(url));
+}
+
+function _syncViaGet(url) {
+  const encoded = encodeURIComponent(JSON.stringify(rows));
+  fetch(url + '?action=save&data=' + encoded)
+  .then(r => r.text())
+  .then(text => {
+    try {
+      const d = JSON.parse(text);
+      if(d.ok) {
+        showGsStatus('✅ ' + (d.saved||rows.length) + ' appareils envoyés !', true);
+        toast('✅ ' + (d.saved||rows.length) + ' appareils envoyés !', 'success');
+      } else {
+        showGsStatus('❌ ' + (d.message||'Échec'), false);
+        toast('✗ Erreur', 'error');
+      }
+    } catch(e) {
+      showGsStatus('❌ Redéploie le script avec une nouvelle version dans Apps Script.', false);
+      toast('✗ Erreur', 'error');
     }
   })
   .catch(() => {
-    showGsStatus('❌ Erreur de connexion.', false);
-    toast('✗ Erreur de connexion', 'error');
+    showGsStatus('❌ Connexion impossible. Apps Script → Déployer → Nouvelle version → Déployer', false);
+    toast('✗ Connexion impossible', 'error');
   });
 }
 
@@ -3487,84 +3510,79 @@ function syncFromGoogleSheets() {
 }
 
 function copyAppsScript() {
-  const lines = [
-    "// SOD 4G FUSION — Apps Script pour Google Sheets + AppSheet",
-    "// Etapes : Extensions > Apps Script > colle ce code > Deployer > Application Web > Acces Tout le monde",
-    "",
-    "const SHEET_NAME = 'Donnees';",
-    "const COLUMNS = ['numeroAppareil','adresse','cp','ville','id','mdp','ligne','serveur','port','technicien','voip','voipComment','voipSimNumber','voipIccid','rapportFini'];",
-    "",
-    "function doGet(e) {",
-    "  const action = (e.parameter && e.parameter.action) || 'load';",
-    "  if (action === 'ping') return jsonOut({ ok: true, message: 'Connecte' });",
-    "  if (action === 'load') return loadData();",
-    "  return jsonOut({ ok: false, message: 'Action inconnue' });",
-    "}",
-    "",
-    "function doPost(e) {",
-    "  try {",
-    "    const body = JSON.parse(e.postData.contents);",
-    "    if (body.action === 'save') return saveData(body.data);",
-    "    return jsonOut({ ok: false, message: 'Action inconnue' });",
-    "  } catch(err) { return jsonOut({ ok: false, message: err.message }); }",
-    "}",
-    "",
-    "function loadData() {",
-    "  try {",
-    "    const ss = SpreadsheetApp.getActiveSpreadsheet();",
-    "    const sheet = ss.getSheetByName(SHEET_NAME);",
-    "    if (!sheet) return jsonOut({ ok: true, data: [] });",
-    "    const vals = sheet.getDataRange().getValues();",
-    "    if (vals.length < 2) return jsonOut({ ok: true, data: [] });",
-    "    const headers = vals[0].map(String);",
-    "    const data = vals.slice(1).map(row => {",
-    "      const obj = {};",
-    "      headers.forEach((h, i) => { obj[h] = row[i] !== undefined ? String(row[i]) : ''; });",
-    "      return obj;",
-    "    });",
-    "    return jsonOut({ ok: true, data: data });",
-    "  } catch(err) { return jsonOut({ ok: false, message: err.message }); }",
-    "}",
-    "",
-    "function saveData(rows) {",
-    "  try {",
-    "    const ss = SpreadsheetApp.getActiveSpreadsheet();",
-    "    let sheet = ss.getSheetByName(SHEET_NAME);",
-    "    if (!sheet) sheet = ss.insertSheet(SHEET_NAME);",
-    "    sheet.clearContents();",
-    "    if (!rows || rows.length === 0) return jsonOut({ ok: true, saved: 0 });",
-    "    const headers = COLUMNS;",
-    "    const values = [headers].concat(rows.map(r => headers.map(h => r[h] !== undefined ? r[h] : '')));",
-    "    sheet.getRange(1, 1, values.length, headers.length).setValues(values);",
-    "    const hr = sheet.getRange(1, 1, 1, headers.length);",
-    "    hr.setBackground('#15803d').setFontColor('#ffffff').setFontWeight('bold');",
-    "    sheet.setFrozenRows(1);",
-    "    return jsonOut({ ok: true, saved: rows.length });",
-    "  } catch(err) { return jsonOut({ ok: false, message: err.message }); }",
-    "}",
-    "",
-    "function jsonOut(obj) {",
-    "  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);",
-    "}"
-  ];
+  const script = `const SHEET_NAME = 'Donnees';
+const COLUMNS = ['numeroAppareil','adresse','cp','ville','id','mdp','ligne','serveur','port','technicien','voip','voipComment','voipSimNumber','voipIccid','rapportFini'];
 
-  const script = lines.join('\n');
+function doGet(e) {
+  try {
+    var action = (e && e.parameter && e.parameter.action) ? e.parameter.action : 'load';
+    if (action === 'ping') return jsonOut({ ok: true, message: 'OK' });
+    if (action === 'load') return jsonOut(loadSheetData());
+    if (action === 'save') {
+      var data = e.parameter.data ? JSON.parse(decodeURIComponent(e.parameter.data)) : [];
+      return jsonOut(saveSheetData(data));
+    }
+    return jsonOut({ ok: false, message: 'Action inconnue' });
+  } catch(err) { return jsonOut({ ok: false, message: err.message }); }
+}
+
+function doPost(e) {
+  try {
+    var body = JSON.parse(e.postData.contents);
+    if (body.action === 'save') return jsonOut(saveSheetData(body.data));
+    if (body.action === 'ping') return jsonOut({ ok: true });
+    return jsonOut({ ok: false, message: 'Action inconnue' });
+  } catch(err) { return jsonOut({ ok: false, message: err.message }); }
+}
+
+function jsonOut(obj) {
+  var out = ContentService.createTextOutput(JSON.stringify(obj));
+  out.setMimeType(ContentService.MimeType.JSON);
+  return out;
+}
+
+function loadSheetData() {
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName(SHEET_NAME);
+    if (!sheet) return { ok: true, data: [] };
+    var vals = sheet.getDataRange().getValues();
+    if (vals.length < 2) return { ok: true, data: [] };
+    var headers = vals[0].map(function(h){ return String(h); });
+    var data = vals.slice(1).map(function(row) {
+      var obj = {};
+      headers.forEach(function(h,i){ obj[h] = String(row[i]||''); });
+      return obj;
+    });
+    return { ok: true, data: data, count: data.length };
+  } catch(err) { return { ok: false, message: err.message }; }
+}
+
+function saveSheetData(rows) {
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName(SHEET_NAME);
+    if (!sheet) sheet = ss.insertSheet(SHEET_NAME);
+    sheet.clearContents();
+    if (!rows || rows.length === 0) return { ok: true, saved: 0 };
+    var values = [COLUMNS].concat(rows.map(function(r){
+      return COLUMNS.map(function(h){ return String(r[h]||''); });
+    }));
+    sheet.getRange(1,1,values.length,COLUMNS.length).setValues(values);
+    sheet.getRange(1,1,1,COLUMNS.length).setBackground('#15803d').setFontColor('#ffffff').setFontWeight('bold');
+    sheet.setFrozenRows(1);
+    return { ok: true, saved: rows.length };
+  } catch(err) { return { ok: false, message: err.message }; }
+}`;
 
   const copy = () => {
     const ta = document.createElement('textarea');
-    ta.value = script;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    toast('✓ Script copié ! Colle-le dans Apps Script → Extensions → Apps Script', 'success');
+    ta.value = script; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    toast('✓ Script copié !', 'success');
   };
-
-  if(navigator.clipboard) {
-    navigator.clipboard.writeText(script).then(() => toast('✓ Script copié !', 'success')).catch(copy);
-  } else { copy(); }
+  navigator.clipboard ? navigator.clipboard.writeText(script).then(()=>toast('✓ Script copié !','success')).catch(copy) : copy();
 }
 
 function doLogin() {
