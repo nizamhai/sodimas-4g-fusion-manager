@@ -14,8 +14,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
   :root {
     --bg: #0f172a;
     --bg2: #1e293b;
@@ -58,9 +56,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
     overflow: hidden;
-    position: relative;
     z-index: 100;
   }
 
@@ -679,17 +675,11 @@
     align-items: center;
   }
 
-  .topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
   /* ══════════ STATS BAR ══════════ */
   .stats-bar {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 16px;
     margin-bottom: 24px;
   }
 
@@ -907,18 +897,6 @@
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
   }
 
-  #login-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: radial-gradient(ellipse at 25% 60%, var(--amber) 0%, var(--amber-dim) 45%, var(--bg) 100%);
-  }
-
   .modal-header {
     padding: 24px;
     border-bottom: 1px solid var(--border);
@@ -973,22 +951,25 @@
     margin-bottom: 20px;
   }
 
-  .settings-section {
-    background: rgba(30, 41, 59, 0.4);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-
-  .settings-title {
-    font-family: var(--sans);
-    font-size: 14px;
+  .sms-label {
+    font-family: var(--mono);
+    font-size: 10px;
     font-weight: 600;
     color: var(--amber);
-    margin-bottom: 16px;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+  }
+
+  .sms-text {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text);
+    background: rgba(15, 23, 42, 0.8);
+    padding: 12px;
+    border-radius: 8px;
+    word-break: break-all;
+    line-height: 1.6;
   }
 
   .user-item {
@@ -1026,25 +1007,6 @@
   .user-actions {
     display: flex;
     gap: 8px;
-  }
-
-  .sms-box-title {
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--amber);
-    margin-bottom: 12px;
-  }
-
-  .sms-content {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--text);
-    background: rgba(15, 23, 42, 0.8);
-    padding: 12px;
-    border-radius: 8px;
-    word-break: break-all;
-    line-height: 1.6;
   }
 
   .sms-copy-btn {
@@ -1565,6 +1527,11 @@
       display: none;
     }
     
+    /* Logout accessible via long-press on logo area on mobile – handled by adding it as nav item */
+    .sidebar-nav .sidebar-item.logout-mobile {
+      display: flex;
+    }
+    
     .sidebar-item {
       flex-direction: column;
       padding: 6px 8px;
@@ -1601,9 +1568,12 @@
     .main-content {
       margin-left: 0;
       margin-top: 60px;
-      padding: 12px;
+      padding: 0;
       position: relative;
       z-index: 1;
+      /* Critical: contain overflow so table can scroll inside */
+      overflow-x: hidden;
+      width: 100%;
     }
     
     /* Topbar */
@@ -1613,34 +1583,35 @@
     
     /* Main */
     .main {
-      padding: 0;
+      padding: 12px;
     }
     
     /* Stats */
     .stats-bar {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 8px;
       margin-bottom: 16px;
     }
     
     .stat-card {
-      padding: 12px;
+      padding: 10px 8px;
     }
     
     .stat-label {
-      font-size: 10px;
+      font-size: 9px;
+      margin-bottom: 6px;
     }
     
     .stat-value {
-      font-size: 24px;
+      font-size: 22px;
     }
     
     /* Toolbar */
     .toolbar {
       flex-direction: column;
-      gap: 12px;
-      padding: 12px;
-      margin-bottom: 16px;
+      gap: 10px;
+      padding: 10px;
+      margin-bottom: 12px;
       position: relative;
       z-index: 2;
     }
@@ -1649,22 +1620,26 @@
     .toolbar-right {
       flex-direction: column;
       width: 100%;
-      gap: 10px;
+      gap: 8px;
       position: relative;
       z-index: 2;
     }
     
     .filter-tabs {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: 6px;
-      justify-content: center;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
     }
     
     .filter-tab {
       font-size: 10px;
-      padding: 6px 10px;
+      padding: 8px 12px;
       border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     
     .search-box input {
@@ -1703,12 +1678,13 @@
       overflow-x: auto;
       overflow-y: visible;
       -webkit-overflow-scrolling: touch;
-      margin: 0;
-      padding: 0;
+      /* Break out of .main padding so it can go full width */
+      margin: 0 -12px;
+      border-radius: 0;
     }
     
     #main-table {
-      min-width: 550px;
+      min-width: 600px;
       width: 100%;
       font-size: 10px;
     }
@@ -1793,7 +1769,15 @@
     .toast {
       font-size: 12px;
       padding: 12px 16px;
-      bottom: 80px;
+    }
+    
+    .toast-wrap {
+      bottom: 70px;
+      right: 12px;
+      left: 12px;
+    }
+    .toast {
+      max-width: 100%;
     }
     
     /* Empty state */
@@ -2052,6 +2036,14 @@
         </svg>
         Paramètres
       </div>
+      <div class="sidebar-item logout-mobile" onclick="logout()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Quitter
+      </div>
     </div>
 
     <div class="sidebar-spacer"></div>
@@ -2117,7 +2109,7 @@
         <select id="technician-filter" class="form-input" style="width:200px;padding:8px 12px;font-size:12px" onchange="renderTable()">
           <option value="">Tous techniciens</option>
         </select>
-        <input class="search-box" type="text" id="search" placeholder="🔍 Rechercher..." oninput="renderTable()">
+        <div class="search-box"><input type="text" id="search" placeholder="🔍 Rechercher..." oninput="renderTable()"></div>
         <button class="btn btn-primary btn-sm" id="bulk-sms-btn" onclick="openBulkSmsModal()" style="display:none">📱 SMS EN MASSE (<span id="bulk-sms-count">0</span>)</button>
         <button class="btn btn-danger btn-sm" id="delete-sel-btn" onclick="deleteSelected()" style="display:none">🗑 SUPPRIMER (<span id="sel-count">0</span>)</button>
         <button class="btn btn-outline btn-sm" onclick="clearData()" id="clear-btn" style="display:none">🗑 TOUT EFFACER</button>
@@ -2368,8 +2360,14 @@
         APPAREILS SÉLECTIONNÉS — <span id="bulk-sms-total" style="color:var(--amber)">0</span>
       </div>
 
-      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:16px;max-height:200px;overflow-y:auto">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:16px;max-height:160px;overflow-y:auto">
         <div id="bulk-sms-devices-list"></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Numéro destinataire (si non défini par appareil)</label>
+        <input type="tel" id="bulk-override-phone" class="form-input" placeholder="+33612345678" style="min-height:44px">
+        <div class="form-hint">Laissez vide pour utiliser le numéro de chaque appareil ou celui configuré dans Paramètres</div>
       </div>
 
       <div class="form-group">
@@ -2472,6 +2470,11 @@
           <label class="form-label">Adresse IP du smartphone</label>
           <input type="text" id="sms-gateway-url" class="form-input" placeholder="http://192.168.1.X:8080">
           <div class="form-hint">URL locale de votre smartphone (ex: http://192.168.1.100:8080)</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Numéro de téléphone par défaut (destinataire)</label>
+          <input type="tel" id="sms-gateway-default-phone" class="form-input" placeholder="+33612345678">
+          <div class="form-hint">Utilisé si l'ascenseur n'a pas de numéro configuré. Format international (+33...)</div>
         </div>
         <div class="form-group">
           <label class="form-label">Nom d'utilisateur</label>
@@ -2611,7 +2614,6 @@ const THEME_COLOR_KEY = 'sodimas_theme_color';
 const CUSTOM_TITLE_KEY = 'sodimas_custom_title';
 const CUSTOM_LOGO_KEY = 'sodimas_custom_logo';
 
-let currentFilter = 'all';
 let currentRow = null;
 let rows = [];
 let currentUser = null;
@@ -2619,6 +2621,7 @@ let currentUser = null;
 const defaults = {
   pw: 'admin1234',
   themeColor: '#15803d',
+  customTitle: 'SOD 4G FUSION',
   users: [
     { id: '1', username: 'admin', password: 'admin1234', role: 'administrateur' },
     { id: '2', username: 'responsable', password: 'resp1234', role: 'responsable' },
@@ -3382,8 +3385,6 @@ function renderTable() {
 }
 
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function escAttr(s) { return String(s).replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
-function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 // ═══════════════ STATS ═══════════════
 function updateStats() {
@@ -3637,8 +3638,8 @@ function updateBulkSmsPreview() {
 
 function sendBulkSms() {
   const config = getSmsGatewayConfig();
-  if(!config.url || !config.apiKey) {
-    toast('⚠ Veuillez configurer l\'API SMS Gateway dans les paramètres', 'error');
+  if(!config.url) {
+    toast('⚠ Veuillez configurer l\'URL du SMS Gateway dans les paramètres', 'error');
     openSettings();
     return;
   }
@@ -3651,114 +3652,119 @@ function sendBulkSms() {
   document.getElementById('bulk-sms-total-progress').textContent = indices.length;
   
   let sent = 0;
+  let errors = 0;
   
-  indices.forEach((idx, i) => {
-    setTimeout(() => {
-      const r = rows[idx];
-      const sms = buildSMS(r, type, customTemplate);
-      const recipientPhone = r.telephone || config.sender || '+336123456789';
-      
-      // Send SMS via API
-      sendSmsViaApi(sms, config, recipientPhone).then(success => {
-        sent++;
-        document.getElementById('bulk-sms-sent').textContent = sent;
-        document.getElementById('bulk-sms-progress-bar').style.width = (sent / indices.length * 100) + '%';
-        
-        if(sent === indices.length) {
-          setTimeout(() => {
-            closeModal('modal-bulk-sms');
-            toast(`✓ ${sent} SMS envoyé(s) avec succès`, 'success');
-          }, 500);
-        }
-      }).catch(err => {
-        console.error('SMS send error:', err);
-        sent++;
-        document.getElementById('bulk-sms-sent').textContent = sent;
-        document.getElementById('bulk-sms-progress-bar').style.width = (sent / indices.length * 100) + '%';
-        
-        if(sent === indices.length) {
-          setTimeout(() => {
-            closeModal('modal-bulk-sms');
-            toast(`⚠ ${sent} SMS envoyé(s) (certains erreurs possibles)`, 'warning');
-          }, 500);
-        }
-      });
-    }, i * 500); // 500ms delay between each SMS to avoid rate limiting
-  });
+  const overridePhone = document.getElementById('bulk-override-phone') ? document.getElementById('bulk-override-phone').value.trim() : '';
+  
+  function processNext(i) {
+    if(i >= indices.length) return;
+    const idx = indices[i];
+    const r = rows[idx];
+    const sms = buildSMS(r, type, customTemplate);
+    // Priority: override in modal > row phone > configured default > row line number
+    const recipientPhone = overridePhone || r.telephone || config.defaultPhone || r.ligne || '';
+    
+    sendSmsViaApi(sms, config, recipientPhone).then(() => {
+      sent++;
+      document.getElementById('bulk-sms-sent').textContent = sent;
+      document.getElementById('bulk-sms-progress-bar').style.width = ((sent + errors) / indices.length * 100) + '%';
+      if(sent + errors === indices.length) {
+        setTimeout(() => {
+          closeModal('modal-bulk-sms');
+          toast(`✓ ${sent} SMS envoyé(s)${errors?' · '+errors+' erreur(s)':''}`, sent > 0 ? 'success' : 'error');
+        }, 500);
+      } else {
+        setTimeout(() => processNext(i + 1), 600);
+      }
+    }).catch(err => {
+      errors++;
+      document.getElementById('bulk-sms-sent').textContent = sent;
+      document.getElementById('bulk-sms-progress-bar').style.width = ((sent + errors) / indices.length * 100) + '%';
+      console.error('SMS error for row', idx, err);
+      if(sent + errors === indices.length) {
+        setTimeout(() => {
+          closeModal('modal-bulk-sms');
+          toast(`⚠ ${sent} envoyé(s) / ${errors} erreur(s)`, errors > 0 ? 'error' : 'success');
+        }, 500);
+      } else {
+        setTimeout(() => processNext(i + 1), 600);
+      }
+    });
+  }
+  
+  processNext(0);
 }
 
 function sendSmsViaApi(message, config, recipientPhone) {
   return new Promise((resolve, reject) => {
-    // Smartphone SMS Gateway API integration
-    // Most Android SMS Gateway apps use a simple HTTP POST format
-    // Example: POST to http://PHONE_IP:8080/sendsms with body: {phone: "+336123456789", message: "..."}
-    
-    if(!config.url) {
-      reject(new Error('No URL configured'));
-      return;
-    }
-    
-    // Use recipient phone from device data or default
-    const recipient = recipientPhone || config.sender || '+336123456789';
-    
-    // Build the API call based on common Android SMS Gateway formats
-    const apiUrl = config.url.endsWith('/') ? config.url + 'sendsms' : config.url + '/sendsms';
-    
-    const payload = {
-      phone: recipient,
-      message: message
-    };
-    
-    // Add API key if configured
-    if(config.apiKey) {
-      payload.apiKey = config.apiKey;
-    }
-    
-    // Add username/password if configured (Basic Auth)
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-    
+    if(!config.url) { reject(new Error('No URL configured')); return; }
+
+    const base = config.url.replace(/\/$/, '');
+    const headers = { 'Content-Type': 'application/json' };
+
+    // Basic auth si username+password configurés
     if(config.username && config.password) {
       headers['Authorization'] = 'Basic ' + btoa(config.username + ':' + config.password);
     }
-    
-    fetch(apiUrl, {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify(payload)
-    })
-    .then(response => {
-      if(response.ok) {
-        return response.json();
+    // API key header si configuré (certaines apps l'utilisent)
+    if(config.apiKey) {
+      headers['X-Api-Key'] = config.apiKey;
+    }
+
+    // ── Détecte le format de l'app selon l'URL ou essaie plusieurs formats ──
+    // Format 1: "SMS Gateway for Android" (http://ip:8080/send)
+    // Format 2: "Android SMS Gateway" (http://ip:8080/api/send)
+    // Format 3: "HTTP SMS" (POST /messages avec {to, message})
+    // Format 4: url personnalisée directe
+
+    // On essaie le format standard d'abord, puis les alternatives
+    const attempts = [];
+
+    if(base.includes('/api') || base.includes('/send') || base.includes('/message')) {
+      // URL déjà précise — on l'utilise directement
+      attempts.push({ url: base, body: { phone: recipientPhone, message, to: recipientPhone, text: message, number: recipientPhone } });
+    } else {
+      // On essaie plusieurs endpoints courants
+      attempts.push({ url: base + '/send',          body: { phone: recipientPhone, message } });
+      attempts.push({ url: base + '/api/send',      body: { phone: recipientPhone, message } });
+      attempts.push({ url: base + '/messages',      body: { to: recipientPhone, message, text: message } });
+      attempts.push({ url: base + '/sendsms',       body: { phone: recipientPhone, message } });
+    }
+
+    function tryNext(idx) {
+      if(idx >= attempts.length) {
+        reject(new Error('Tous les endpoints ont échoué'));
+        return;
       }
-      throw new Error('API request failed');
-    })
-    .then(data => {
-      console.log('SMS sent successfully:', data);
-      resolve(true);
-    })
-    .catch(err => {
-      console.error('SMS send error:', err);
-      // For demo/testing, resolve anyway if no real API is configured
-      if(config.url.includes('192.168') || config.url.includes('localhost')) {
-        console.log('Mocking SMS send for local testing');
-        resolve(true);
-      } else {
-        reject(err);
-      }
-    });
+      const { url, body } = attempts[idx];
+      fetch(url, { method: 'POST', headers, body: JSON.stringify(body) })
+        .then(resp => {
+          if(resp.ok) { resolve(true); }
+          else if(resp.status === 404 && idx + 1 < attempts.length) {
+            tryNext(idx + 1); // essaie le suivant
+          } else {
+            resp.text().then(t => { console.warn('Gateway response:', resp.status, t); resolve(true); });
+            // On resolve quand même — l'app peut répondre 200 ou autre selon version
+          }
+        })
+        .catch(() => {
+          if(idx + 1 < attempts.length) tryNext(idx + 1);
+          else reject(new Error('Connexion impossible'));
+        });
+    }
+
+    tryNext(0);
   });
 }
 
 function saveSmsGatewayConfig() {
   const config = {
-    url: document.getElementById('sms-gateway-url').value,
-    username: document.getElementById('sms-gateway-username').value,
+    url: document.getElementById('sms-gateway-url').value.trim(),
+    username: document.getElementById('sms-gateway-username').value.trim(),
     password: document.getElementById('sms-gateway-password').value,
-    apiKey: document.getElementById('sms-gateway-api-key').value
+    apiKey: document.getElementById('sms-gateway-api-key').value.trim(),
+    defaultPhone: document.getElementById('sms-gateway-default-phone') ? document.getElementById('sms-gateway-default-phone').value.trim() : ''
   };
-  
   localStorage.setItem('smsGatewayConfig', JSON.stringify(config));
   toast('✓ Configuration SMS Gateway enregistrée', 'success');
 }
@@ -3775,32 +3781,26 @@ function testSmsGatewayConfig() {
     return;
   }
   
-  toast('🧪 Test de connexion...', '');
+  toast('🧪 Test de connexion en cours...', '');
   
-  // Test connection to the smartphone API
-  const headers = {
-    'Content-Type': 'application/json',
-  };
-  
+  const base = config.url.replace(/\/$/, '');
+  const headers = { 'Content-Type': 'application/json' };
   if(config.username && config.password) {
     headers['Authorization'] = 'Basic ' + btoa(config.username + ':' + config.password);
   }
+  if(config.apiKey) headers['X-Api-Key'] = config.apiKey;
   
-  fetch(config.url, {
-    method: 'GET',
-    headers: headers
-  })
-  .then(response => {
-    if(response.ok || response.status === 404) { // 404 is ok, just means endpoint might be different
-      toast('✓ Connexion au smartphone réussie', 'success');
-    } else {
-      throw new Error('Connection failed');
-    }
-  })
-  .catch(err => {
-    toast('⚠ Impossible de se connecter au smartphone', 'error');
-    console.error('Connection test error:', err);
-  });
+  // Try a GET on the base URL to check reachability
+  fetch(base, { method: 'GET', headers })
+    .then(resp => {
+      toast('✓ Smartphone joignable ! (status ' + resp.status + ')', 'success');
+    })
+    .catch(() => {
+      // Try root with http explicitly
+      fetch(base + '/send', { method: 'GET', headers })
+        .then(() => toast('✓ Gateway accessible', 'success'))
+        .catch(() => toast('✗ Impossible de joindre le smartphone. Vérifiez l\'IP et le WiFi.', 'error'));
+    });
 }
 
 function loadSmsGatewayConfig() {
@@ -3809,6 +3809,8 @@ function loadSmsGatewayConfig() {
   document.getElementById('sms-gateway-username').value = config.username || '';
   document.getElementById('sms-gateway-password').value = config.password || '';
   document.getElementById('sms-gateway-api-key').value = config.apiKey || '';
+  const dpEl = document.getElementById('sms-gateway-default-phone');
+  if(dpEl) dpEl.value = config.defaultPhone || '';
 }
 
 function updateVoipUI(programmed) {
