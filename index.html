@@ -1035,6 +1035,25 @@
     line-height: 1.6;
   }
 
+  /* Thème clair — SMS box */
+  body.theme-light .sms-box {
+    background: #f8fafc;
+    border-color: #dde3ec;
+  }
+  body.theme-light .sms-text {
+    background: #1e293b;
+    color: #e2e8f0;
+  }
+  body.theme-light .sms-copy-btn {
+    border-color: #c4ccd8;
+    color: #4a5568;
+    background: #f8fafc;
+  }
+  body.theme-light .sms-copy-btn:hover {
+    border-color: var(--amber);
+    color: var(--amber);
+  }
+
   .user-item {
     display: flex;
     align-items: center;
@@ -2450,8 +2469,36 @@
         APPAREILS SÉLECTIONNÉS — <span id="bulk-sms-total" style="color:var(--amber)">0</span>
       </div>
 
-      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:16px;max-height:160px;overflow-y:auto">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:16px;max-height:120px;overflow-y:auto">
         <div id="bulk-sms-devices-list"></div>
+      </div>
+
+      <!-- MÉTHODE D'ENVOI -->
+      <div class="form-group" style="margin-bottom:16px">
+        <label class="form-label" style="margin-bottom:10px">📡 Méthode d'envoi</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button id="method-mobilelink" onclick="selectSmsMethod('mobilelink')"
+            style="flex:1;min-width:110px;padding:10px 6px;border-radius:10px;border:2px solid var(--amber);background:rgba(21,128,61,0.10);cursor:pointer;text-align:center;transition:all .2s">
+            <div style="font-size:18px;margin-bottom:3px">🪟</div>
+            <div style="font-size:11px;font-weight:700;color:var(--text)">Mobile Link</div>
+            <div style="font-size:9px;color:var(--text-dim);margin-top:1px">Windows</div>
+          </button>
+          <button id="method-gateway" onclick="selectSmsMethod('gateway')"
+            style="flex:1;min-width:110px;padding:10px 6px;border-radius:10px;border:2px solid var(--border);background:var(--bg3);cursor:pointer;text-align:center;transition:all .2s">
+            <div style="font-size:18px;margin-bottom:3px">📡</div>
+            <div style="font-size:11px;font-weight:700;color:var(--text)">HTTP Gateway</div>
+            <div style="font-size:9px;color:var(--text-dim);margin-top:1px">Android App</div>
+          </button>
+          <button id="method-manual" onclick="selectSmsMethod('manual')"
+            style="flex:1;min-width:110px;padding:10px 6px;border-radius:10px;border:2px solid var(--border);background:var(--bg3);cursor:pointer;text-align:center;transition:all .2s">
+            <div style="font-size:18px;margin-bottom:3px">📋</div>
+            <div style="font-size:11px;font-weight:700;color:var(--text)">Manuel</div>
+            <div style="font-size:9px;color:var(--text-dim);margin-top:1px">Fichier .txt</div>
+          </button>
+        </div>
+        <div id="method-info" style="margin-top:10px;padding:10px;border-radius:8px;border:1px solid rgba(21,128,61,0.3);background:rgba(21,128,61,0.06);font-size:11px;color:var(--text-dim);line-height:1.7">
+          🪟 <strong style="color:var(--text)">Mobile Link Windows</strong> — Ouvre Phone Link avec numéro + message pré-remplis. Installez <strong>Phone Link</strong> depuis le Microsoft Store et liez votre Android.
+        </div>
       </div>
 
       <div class="form-group">
@@ -2477,7 +2524,7 @@
       </div>
 
       <div style="display:flex;gap:12px;margin-top:20px">
-        <button class="btn btn-primary" style="flex:1" onclick="sendBulkSms()">📤 ENVOYER SMS EN MASSE</button>
+        <button class="btn btn-primary" style="flex:1" id="btn-send-bulk" onclick="sendBulkSms()">🪟 Envoyer via Mobile Link</button>
         <button class="btn btn-outline" onclick="closeModal('modal-bulk-sms')">ANNULER</button>
       </div>
 
@@ -3423,106 +3470,8 @@ function syncFromGoogleSheets() {
 }
 
 function copyAppsScript() {
-  const script = `// ═══════════════════════════════════════════
-// SCRIPT APPS SCRIPT — SOD 4G FUSION
-// Colle ce code dans Extensions → Apps Script
-// Déploie comme Application Web (accès: Tout le monde)
-// ═══════════════════════════════════════════
-
-const SHEET_NAME = 'Données';
-const LICENCES_SHEET = 'Licences';
-
-function doGet(e) {
-  const action = e.parameter.action;
-  const key = e.parameter.key || '';
-
-  if(action === 'ping') {
-    return jsonResponse({ ok: true, message: 'SOD 4G Fusion connecté' });
-  }
-
-  if(action === 'load') {
-    return loadData(key);
-  }
-
-  if(action === 'check') {
-    return checkLicence(e.parameter.key);
-  }
-
-  return jsonResponse({ ok: false, message: 'Action inconnue' });
-}
-
-function doPost(e) {
-  try {
-    const body = JSON.parse(e.postData.contents);
-    if(body.action === 'save') return saveData(body.data, body.key);
-    return jsonResponse({ ok: false, message: 'Action inconnue' });
-  } catch(err) {
-    return jsonResponse({ ok: false, message: err.message });
-  }
-}
-
-function checkLicence(key) {
-  if(!key) return jsonResponse({ valid: false, message: 'Clé manquante' });
-  try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = ss.getSheetByName(LICENCES_SHEET);
-    if(!sheet) return jsonResponse({ valid: false, message: 'Feuille Licences introuvable' });
-    const data = sheet.getDataRange().getValues();
-    for(let i = 1; i < data.length; i++) {
-      const [licKey, active, days, expiry] = data[i];
-      if(licKey === key && active === 'OUI') {
-        return jsonResponse({ valid: true, days: days || 365 });
-      }
-    }
-    return jsonResponse({ valid: false, message: 'Licence invalide ou inactive' });
-  } catch(err) {
-    return jsonResponse({ valid: false, message: err.message });
-  }
-}
-
-function loadData(key) {
-  try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = ss.getSheetByName(SHEET_NAME) || ss.getActiveSheet();
-    const data = sheet.getDataRange().getValues();
-    if(data.length < 2) return jsonResponse({ ok: true, data: [] });
-    const headers = data[0];
-    const rows = data.slice(1).map(row => {
-      const obj = {};
-      headers.forEach((h, i) => obj[h] = row[i]);
-      return obj;
-    });
-    return jsonResponse({ ok: true, data: rows });
-  } catch(err) {
-    return jsonResponse({ ok: false, message: err.message });
-  }
-}
-
-function saveData(rows, key) {
-  try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    let sheet = ss.getSheetByName(SHEET_NAME);
-    if(!sheet) sheet = ss.insertSheet(SHEET_NAME);
-    sheet.clearContents();
-    if(!rows || !rows.length) return jsonResponse({ ok: true });
-    const headers = Object.keys(rows[0]);
-    const values = [headers, ...rows.map(r => headers.map(h => r[h] ?? ''))];
-    sheet.getRange(1, 1, values.length, headers.length).setValues(values);
-    return jsonResponse({ ok: true });
-  } catch(err) {
-    return jsonResponse({ ok: false, message: err.message });
-  }
-}
-
-function jsonResponse(obj) {
-  return ContentService
-    .createTextOutput(JSON.stringify(obj))
-    .setMimeType(ContentService.MimeType.JSON);
-}`;
-
-  navigator.clipboard.writeText(script)
-    .then(() => toast('✓ Script copié ! Colle-le dans Apps Script', 'success'))
-    .catch(() => toast('Copie manuelle : ouvre les paramètres', 'error'));
+  const s = '// Script Apps Script - voir documentation';
+  navigator.clipboard.writeText(s).then(()=>toast('✓ Copié','success')).catch(()=>{});
 }
 
 function doLogin() {
@@ -4071,7 +4020,19 @@ function renderTable() {
         <input type="checkbox" ${checked?'checked':''} onchange="toggleRow(${r._origIdx})"
           style="cursor:pointer;accent-color:var(--amber);width:14px;height:14px">
       </td>
-      <td style="color:var(--amber);font-family:var(--mono);font-size:12px;font-weight:bold;white-space:nowrap">${esc(r.numeroAppareil||'—')}</td>
+      <td style="white-space:nowrap">
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="color:var(--amber);font-family:var(--mono);font-size:12px;font-weight:bold">${esc(r.numeroAppareil||'—')}</span>
+          <button onclick="quickSMS(${r._origIdx})" title="Envoyer SMS"
+            style="width:30px;height:30px;border-radius:8px;border:1.5px solid var(--amber);background:rgba(21,128,61,0.12);color:var(--amber);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;flex-shrink:0;transition:all .15s"
+            onmouseover="this.style.background='var(--amber)';this.style.color='#fff'"
+            onmouseout="this.style.background='rgba(21,128,61,0.12)';this.style.color='var(--amber)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
+            </svg>
+          </button>
+        </div>
+      </td>
       <td>
         <div class="actions-cell">
           <button class="btn btn-primary btn-sm" onclick="openSmsModal(${r._origIdx})" style="white-space:nowrap">📱 SMS/QR</button>
@@ -4262,6 +4223,18 @@ function copySMS() {
   navigator.clipboard.writeText(txt).then(() => toast('SMS copié !', 'success')).catch(() => toast('Erreur copie', 'error'));
 }
 
+function quickSMS(idx) {
+  const r   = rows[idx];
+  const sms = buildSMS(r);
+  const num = r.ligne || r.telephone || '';
+  if(num) {
+    window.location.href = 'sms:' + encodeURIComponent(num) + '?body=' + encodeURIComponent(sms);
+  } else {
+    // Pas de numéro → ouvre le modal complet
+    openSmsModal(idx);
+  }
+}
+
 function openSMSApp() {
   if(currentRow === null) return;
   const r = rows[currentRow];
@@ -4333,6 +4306,31 @@ function cancelVoipProgramming() {
 }
 
 // ═══════════════ BULK SMS ═══════════════
+let currentSmsMethod = 'mobilelink';
+
+function selectSmsMethod(method) {
+  currentSmsMethod = method;
+  ['mobilelink','gateway','manual'].forEach(m => {
+    const b = document.getElementById('method-'+m);
+    if(b) { b.style.borderColor='var(--border)'; b.style.background='var(--bg3)'; }
+  });
+  const active = document.getElementById('method-'+method);
+  if(active) { active.style.borderColor='var(--amber)'; active.style.background='rgba(21,128,61,0.10)'; }
+  const info   = document.getElementById('method-info');
+  const btnSend= document.getElementById('btn-send-bulk');
+  if(method==='mobilelink') {
+    if(info) info.innerHTML='🪟 <strong style="color:var(--text)">Mobile Link Windows</strong> — Ouvre Phone Link avec numéro + message. Installez <strong>Phone Link</strong> depuis le Microsoft Store.';
+    if(btnSend) btnSend.textContent='🪟 Envoyer via Mobile Link';
+  } else if(method==='gateway') {
+    const c=getSmsGatewayConfig();
+    if(info) info.innerHTML='📡 <strong style="color:var(--text)">HTTP Gateway</strong> — '+(c&&c.url?'✅ Configuré : <span style="color:var(--amber);font-family:var(--mono)">'+esc(c.url)+'</span>':'⚠ Non configuré — allez dans Paramètres');
+    if(btnSend) btnSend.textContent='📡 Envoyer via Gateway';
+  } else {
+    if(info) info.innerHTML='📋 <strong style="color:var(--text)">Manuel</strong> — Génère un fichier .txt avec tous les SMS.';
+    if(btnSend) btnSend.textContent='📋 Télécharger les SMS';
+  }
+}
+
 function openBulkSmsModal() {
   if(selectedIdxs.size === 0) return;
   
@@ -4357,23 +4355,24 @@ function openBulkSmsModal() {
   
   updateBulkSmsPreview();
   document.getElementById('modal-bulk-sms').style.display = 'flex';
+  setTimeout(() => selectSmsMethod('mobilelink'), 80);
 }
 
 function updateBulkSmsPreview() {
   const type = document.getElementById('bulk-sms-type').value;
   const customTemplate = document.getElementById('bulk-sms-custom-input').value;
-  
   document.getElementById('bulk-sms-custom-template').style.display = type === 'custom' ? 'block' : 'none';
-  
-  // Get first selected device for preview
   const firstIdx = [...selectedIdxs][0];
+  if(firstIdx === undefined) return;
   const r = rows[firstIdx];
-  
   const sms = buildSMS(r, type, customTemplate);
   document.getElementById('bulk-sms-preview').querySelector('.sms-text').textContent = sms;
 }
 
 function sendBulkSms() {
+  if(currentSmsMethod === 'mobilelink') { sendBulkViaMobileLink(); return; }
+  if(currentSmsMethod === 'manual')     { sendBulkManual(); return; }
+  // Gateway
   const config = getSmsGatewayConfig();
   if(!config.url) {
     toast('⚠ Veuillez configurer l\'URL du SMS Gateway dans les paramètres', 'error');
@@ -4430,6 +4429,51 @@ function sendBulkSms() {
   }
   
   processNext(0);
+}
+
+function sendBulkViaMobileLink() {
+  const type    = document.getElementById('bulk-sms-type').value;
+  const custom  = document.getElementById('bulk-sms-custom-input').value;
+  const indices = [...selectedIdxs];
+  document.getElementById('bulk-sms-progress').style.display = 'block';
+  document.getElementById('bulk-sms-total-progress').textContent = indices.length;
+  let i = 0;
+  function sendNext() {
+    if(i >= indices.length) {
+      setTimeout(() => { closeModal('modal-bulk-sms'); toast('✓ '+indices.length+' SMS ouverts via Mobile Link', 'success'); }, 500);
+      return;
+    }
+    const r   = rows[indices[i]];
+    const sms = buildSMS(r, type, custom);
+    const num = r.ligne || r.telephone || '';
+    if(num) window.open('sms:'+encodeURIComponent(num)+'?body='+encodeURIComponent(sms), '_blank');
+    i++;
+    document.getElementById('bulk-sms-sent').textContent = i;
+    document.getElementById('bulk-sms-progress-bar').style.width = (i/indices.length*100)+'%';
+    if(i < indices.length) setTimeout(sendNext, 3000);
+    else setTimeout(() => { closeModal('modal-bulk-sms'); toast('✓ '+i+' SMS via Mobile Link', 'success'); }, 800);
+  }
+  sendNext();
+}
+
+function sendBulkManual() {
+  const type    = document.getElementById('bulk-sms-type').value;
+  const custom  = document.getElementById('bulk-sms-custom-input').value;
+  const indices = [...selectedIdxs];
+  const lines   = indices.map(idx => {
+    const r   = rows[idx];
+    const sms = buildSMS(r, type, custom);
+    const num = r.ligne || r.telephone || '—';
+    return 'N°: '+(r.numeroAppareil||'?')+' | Tel: '+num+'\n'+sms+'\n'+'─'.repeat(48);
+  });
+  const content = 'SMS EN MASSE — '+new Date().toLocaleString('fr-FR')+'\n'+'═'.repeat(48)+'\n\n'+lines.join('\n\n');
+  const a = Object.assign(document.createElement('a'), {
+    href: URL.createObjectURL(new Blob([content], {type:'text/plain;charset=utf-8'})),
+    download: 'SMS_'+new Date().toISOString().slice(0,10)+'.txt'
+  });
+  a.click(); URL.revokeObjectURL(a.href);
+  closeModal('modal-bulk-sms');
+  toast('✓ Fichier '+indices.length+' SMS téléchargé', 'success');
 }
 
 function sendSmsViaApi(message, config, recipientPhone) {
