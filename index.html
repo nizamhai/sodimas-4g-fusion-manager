@@ -3442,7 +3442,14 @@ function openSmsModal(idx) {
   const sms = buildSMS(r, 'voip');
   document.getElementById('sms-content').textContent = sms;
 
-  // QR
+  // QR — nettoie l'étiquette précédente avant de régénérer
+  const qrWrap = document.getElementById('qr-container');
+  const prevLabel = qrWrap.previousElementSibling;
+  if(prevLabel && prevLabel.tagName !== 'DIV') {/* keep */} 
+  // Supprime l'ancienne étiquette numéro si elle existe
+  const oldLabel = qrWrap.parentElement.querySelector('[data-qr-label]');
+  if(oldLabel) oldLabel.remove();
+
   generateQR(r, sms);
 
   document.getElementById('modal-sms').style.display = 'flex';
@@ -3498,10 +3505,21 @@ function updateSMSContent() {
 }
 
 function generateQR(r, smsText) {
-  // Generate QR code with SMS link (opens SMS app on smartphone when scanned)
-  const smsLink = `sms:?body=${encodeURIComponent(smsText)}`;
+  const numero = r.ligne || r.telephone || '';
+  // sms:NUMERO?body=MESSAGE → ouvre l'app SMS avec numéro ET message pré-remplis
+  const smsLink = numero
+    ? `sms:${encodeURIComponent(numero)}?body=${encodeURIComponent(smsText)}`
+    : `sms:?body=${encodeURIComponent(smsText)}`;
+
   const container = document.getElementById('qr-container');
   container.innerHTML = '';
+
+  // Affiche le numéro sous le QR
+  const numLabel = document.createElement('div');
+  numLabel.setAttribute('data-qr-label', '1');
+  numLabel.style.cssText = 'font-family:var(--mono);font-size:11px;color:var(--amber);text-align:center;margin-bottom:8px;font-weight:bold';
+  numLabel.textContent = numero ? '📞 ' + numero : '⚠ Numéro de ligne absent';
+  container.parentElement.insertBefore(numLabel, container);
 
   try {
     new QRCode(container, {
@@ -3525,9 +3543,18 @@ function copySMS() {
 function openSMSApp() {
   if(currentRow === null) return;
   const r = rows[currentRow];
-  const sms = buildSMS(r);
-  // Since numero is removed, just copy the SMS to clipboard
-  navigator.clipboard.writeText(sms).then(() => toast('SMS copié ! (numéro non disponible)', 'success')).catch(() => toast('Erreur copie', 'error'));
+  const smsText = document.getElementById('sms-content').textContent;
+  const numero = r.ligne || r.telephone || '';
+
+  if(numero) {
+    // Ouvre l'app SMS native avec numéro ET message pré-rempli
+    window.location.href = `sms:${encodeURIComponent(numero)}?body=${encodeURIComponent(smsText)}`;
+  } else {
+    // Pas de numéro → copie dans le presse-papier
+    navigator.clipboard.writeText(smsText)
+      .then(() => toast('⚠ Numéro de ligne absent — SMS copié dans le presse-papier', ''))
+      .catch(() => toast('Erreur copie', 'error'));
+  }
 }
 
 function toggleVoip() {
@@ -3607,8 +3634,10 @@ function openBulkSmsModal() {
   const devicesList = document.getElementById('bulk-sms-devices-list');
   devicesList.innerHTML = [...selectedIdxs].map(idx => {
     const r = rows[idx];
-    return `<div style="font-size:11px;color:var(--text);padding:4px 0;border-bottom:1px solid var(--border2)">
-      <span style="color:var(--amber);font-weight:bold">${esc(r.numeroAppareil||'—')}</span> — ${esc(r.adresse||'')} ${esc(r.cp||'')} ${esc(r.ville||'')}
+    const numero = r.ligne || r.telephone || '<span style="color:var(--red)">⚠ pas de numéro</span>';
+    return `<div style="font-size:11px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border2);display:flex;justify-content:space-between;align-items:center">
+      <span><span style="color:var(--amber);font-weight:bold">${esc(r.numeroAppareil||'—')}</span> — ${esc(r.adresse||'')} ${esc(r.cp||'')} ${esc(r.ville||'')}</span>
+      <span style="color:var(--green);font-family:var(--mono);font-size:10px;margin-left:8px;flex-shrink:0">${r.ligne ? '📞 '+esc(r.ligne) : (r.telephone ? '📞 '+esc(r.telephone) : '<span style="color:var(--red)">⚠ no#</span>')}</span>
     </div>`;
   }).join('');
   
@@ -3661,8 +3690,8 @@ function sendBulkSms() {
     const idx = indices[i];
     const r = rows[idx];
     const sms = buildSMS(r, type, customTemplate);
-    // Priority: override in modal > row phone > configured default > row line number
-    const recipientPhone = overridePhone || r.telephone || config.defaultPhone || r.ligne || '';
+    // Priorité : override modal → numéro de ligne de l'appareil → téléphone → défaut paramètres
+    const recipientPhone = overridePhone || r.ligne || r.telephone || config.defaultPhone || '';
     
     sendSmsViaApi(sms, config, recipientPhone).then(() => {
       sent++;
@@ -3722,13 +3751,14 @@ function sendSmsViaApi(message, config, recipientPhone) {
 
     if(base.includes('/api') || base.includes('/send') || base.includes('/message')) {
       // URL déjà précise — on l'utilise directement
-      attempts.push({ url: base, body: { phone: recipientPhone, message, to: recipientPhone, text: message, number: recipientPhone } });
+      attempts.push({ url: base, body: { phone: recipientPhone, message, to: recipientPhone, text: message, number: recipientPhone, recipient: recipientPhone } });
     } else {
-      // On essaie plusieurs endpoints courants
+      // On essaie plusieurs endpoints courants des apps Android SMS Gateway
       attempts.push({ url: base + '/send',          body: { phone: recipientPhone, message } });
       attempts.push({ url: base + '/api/send',      body: { phone: recipientPhone, message } });
       attempts.push({ url: base + '/messages',      body: { to: recipientPhone, message, text: message } });
-      attempts.push({ url: base + '/sendsms',       body: { phone: recipientPhone, message } });
+      attempts.push({ url: base + '/sendsms',       body: { phone: recipientPhone, message, number: recipientPhone } });
+      attempts.push({ url: base + '/api/v1/send',   body: { phone: recipientPhone, message } });
     }
 
     function tryNext(idx) {
