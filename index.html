@@ -1556,6 +1556,8 @@
       width: 100%;
       justify-content: space-around;
       align-items: center;
+      position: relative;
+      z-index: 1;
     }
     
     .sidebar-spacer,
@@ -1571,6 +1573,9 @@
       border-radius: 8px;
       transition: background 0.2s;
       min-width: 60px;
+      position: relative;
+      z-index: 2;
+      cursor: pointer;
     }
     
     .sidebar-item:active {
@@ -1590,12 +1595,15 @@
     .sidebar-item svg {
       width: 22px;
       height: 22px;
+      pointer-events: none;
     }
     
     .main-content {
       margin-left: 0;
       margin-top: 60px;
       padding: 12px;
+      position: relative;
+      z-index: 1;
     }
     
     /* Topbar */
@@ -1633,6 +1641,8 @@
       gap: 12px;
       padding: 12px;
       margin-bottom: 16px;
+      position: relative;
+      z-index: 2;
     }
     
     .toolbar-left,
@@ -1640,6 +1650,8 @@
       flex-direction: column;
       width: 100%;
       gap: 10px;
+      position: relative;
+      z-index: 2;
     }
     
     .filter-tabs {
@@ -1691,10 +1703,8 @@
       overflow-x: auto;
       overflow-y: visible;
       -webkit-overflow-scrolling: touch;
-      margin: 0 -12px;
-      padding: 0 12px;
-      scroll-snap-type: x mandatory;
-      width: calc(100% + 24px);
+      margin: 0;
+      padding: 0;
     }
     
     #main-table {
