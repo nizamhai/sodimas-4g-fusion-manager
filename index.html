@@ -1641,9 +1641,12 @@
     /* Table */
     .table-wrap {
       overflow-x: auto;
+      overflow-y: visible;
       -webkit-overflow-scrolling: touch;
       margin: 0 -16px;
       padding: 0 16px;
+      scroll-snap-type: x mandatory;
+      width: calc(100% + 32px);
     }
     
     #main-table {
@@ -1661,6 +1664,7 @@
     #main-table tbody td {
       padding: 8px 6px;
       font-size: 11px;
+      white-space: nowrap;
     }
     
     #main-table tbody tr {
@@ -1669,33 +1673,6 @@
     
     .hide-mobile {
       display: none !important;
-    }
-    
-    /* Make important columns always visible */
-    #main-table th:nth-child(1),
-    #main-table th:nth-child(2),
-    #main-table th:nth-child(3),
-    #main-table th:nth-child(10),
-    #main-table th:nth-child(11),
-    #main-table th:nth-child(12),
-    #main-table th:nth-child(13) {
-      position: sticky;
-      left: 0;
-      background: var(--bg2);
-      z-index: 10;
-    }
-    
-    #main-table td:nth-child(1),
-    #main-table td:nth-child(2),
-    #main-table td:nth-child(3),
-    #main-table td:nth-child(10),
-    #main-table td:nth-child(11),
-    #main-table td:nth-child(12),
-    #main-table td:nth-child(13) {
-      position: sticky;
-      left: 0;
-      background: var(--bg2);
-      z-index: 10;
     }
     
     /* Modal */
